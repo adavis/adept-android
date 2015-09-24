@@ -1,2 +1,2 @@
 # adept-android
-Source code for the Adept Android video series.
+Source code for Adept Android.
