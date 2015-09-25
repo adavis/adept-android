@@ -44,18 +44,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
         @Bind(R.id.titleTextView) TextView titleTextView;
         @Bind(R.id.authorTextView) TextView authorTextView;
+        @Bind(R.id.publishedTextView) TextView publishedTextView;
+        @Bind(R.id.pagesTextView) TextView pagesTextView;
         @Bind(R.id.imageView) ImageView imageView;
 
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Timber.d("Element " + getAdapterPosition() + " clicked.");
-                }
-            });
         }
     }
 
@@ -81,11 +76,18 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         viewHolder.titleTextView.setText(book.getTitle());
         viewHolder.authorTextView.setText(book.getAuthor());
 
-        Picasso.with(context.get())
-                .load(book.getImageUrl())
-                .resize(0, 168)
-                .centerCrop()
-                .into(viewHolder.imageView);
+        Context contextLocal = context.get();
+        if (contextLocal != null) {
+            viewHolder.publishedTextView.setText(book.getDisplayDate());
+            viewHolder.pagesTextView.setText(
+                    String.format(contextLocal.getString(R.string.pages_label), book.getNumberOfPages()));
+
+            Picasso.with(contextLocal)
+                    .load(book.getImageUrl())
+                    .resize(80, 108)
+                    .centerInside()
+                    .into(viewHolder.imageView);
+        }
     }
 
     @Override

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/list_item_height">
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/list_item_height"
+                 android:background="@color/indigo_50"
+                 android:layout_marginBottom="@dimen/item_margin"
+                 android:padding="@dimen/item_padding">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="168dp"
+        android:layout_width="@dimen/thumb_width"
+        android:layout_height="@dimen/thumb_height"
         android:id="@+id/imageView"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -21,7 +24,10 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"
-        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginStart="@dimen/text_margin"
+        android:textStyle="bold"
+        style="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Sample Text"/>
 
     <TextView
@@ -31,7 +37,31 @@
         android:layout_below="@id/titleTextView"
         android:layout_alignLeft="@id/titleTextView"
         android:layout_alignStart="@id/titleTextView"
-        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginTop="@dimen/text_margin"
+        style="@style/TextAppearance.AppCompat.Body1"
         tools:text="Sample Text"/>
+
+    <TextView
+        android:id="@+id/publishedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@id/titleTextView"
+        android:layout_alignStart="@id/titleTextView"
+        android:layout_marginTop="@dimen/text_margin"
+        style="@style/TextAppearance.AppCompat.Body1"
+        tools:text="August 20, 2015"/>
+
+    <TextView
+        android:id="@+id/pagesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/text_margin"
+        android:textStyle="italic"
+        style="@style/TextAppearance.AppCompat.Body1"
+        tools:text="234 pages"/>
 
 </RelativeLayout>

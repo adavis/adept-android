@@ -4,9 +4,6 @@ import android.app.Application;
 
 import timber.log.Timber;
 
-/**
- * @author davisas3 on 9/24/15.
- */
 public class AdeptAndroid extends Application {
 
     @Override

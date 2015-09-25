@@ -41,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initDataSet();
+        configureLayout();
+    }
 
+    private void configureLayout() {
         setSupportActionBar((Toolbar) ButterKnife.findById(this, R.id.toolbar));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

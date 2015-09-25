@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Adept Android</string>
-    <string name="action_settings">Settings</string>
     <string name="thumbnail_image">thumbnail</string>
+    <string name="pages_label">%d pages</string>
 </resources>
