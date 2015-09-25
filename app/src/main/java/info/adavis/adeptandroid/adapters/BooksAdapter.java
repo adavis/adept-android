@@ -24,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -31,6 +33,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import info.adavis.adeptandroid.VolleySingleton;
 import info.adavis.adeptandroid.models.Book;
 import info.adavis.adeptandroid.R;
 import timber.log.Timber;
@@ -46,7 +49,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         @Bind(R.id.authorTextView) TextView authorTextView;
         @Bind(R.id.publishedTextView) TextView publishedTextView;
         @Bind(R.id.pagesTextView) TextView pagesTextView;
-        @Bind(R.id.imageView) ImageView imageView;
+        @Bind(R.id.imageView) NetworkImageView imageView;
 
         public ViewHolder(View v) {
             super(v);
@@ -82,11 +85,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             viewHolder.pagesTextView.setText(
                     String.format(contextLocal.getString(R.string.pages_label), book.getNumberOfPages()));
 
-            Picasso.with(contextLocal)
-                    .load(book.getImageUrl())
-                    .resize(80, 108)
-                    .centerInside()
-                    .into(viewHolder.imageView);
+            ImageLoader imageLoader = VolleySingleton.getInstance(contextLocal).getImageLoader();
+            viewHolder.imageView.setImageUrl(book.getImageUrl(), imageLoader);
         }
     }
 
