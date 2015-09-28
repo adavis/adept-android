@@ -1,6 +1,5 @@
 package info.adavis.adeptandroid.models;
 
-
 public class Book {
 
     String title;
@@ -36,8 +35,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                '}';
+        return "Book{" + "title='" + title + '\'' + '}';
     }
 }

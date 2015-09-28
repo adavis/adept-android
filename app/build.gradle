@@ -39,3 +39,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.immutables:gson:2.1.0.alpha'
 }
+
+apply from: 'qa-check.gradle'

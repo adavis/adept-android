@@ -1,0 +1,61 @@
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
+task checkstyle(type: Checkstyle) {
+    description 'Checks if the code meets standards'
+    group 'verification'
+
+    configFile file('./qa-check/checkstyle.xml')
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+    ignoreFailures = false
+}
+
+task findbugs(type: FindBugs) {
+    description 'Run findbugs'
+    group 'verification'
+
+    classes = files("$project.buildDir/intermediates/classes")
+    source 'src'
+    classpath = files()
+
+    effort 'max'
+    excludeFilter file('./qa-check/findbugs-exclude.xml')
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+
+    ignoreFailures = true
+}
+
+task pmd(type: Pmd) {
+    description 'Run PMD'
+    group 'verification'
+
+    ruleSetFiles = files("./qa-check/pmd-ruleset.xml")
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+
+    ignoreFailures = true
+}
+
+assembleDebug.doLast {
+    project.tasks.getByName("checkstyle").execute()
+    project.tasks.getByName("findbugs").execute()
+    project.tasks.getByName("pmd").execute()
+    project.tasks.getByName("lint").execute()
+}
