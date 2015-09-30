@@ -84,7 +84,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
             Picasso.with(contextLocal)
                     .load(book.getImageUrl())
-                    .resize(80, 108)
+                    .resize(contextLocal.getResources().getDimensionPixelSize(R.dimen.thumb_width) ,
+                            contextLocal.getResources().getDimensionPixelSize(R.dimen.thumb_height))
                     .centerInside()
                     .into(viewHolder.imageView);
         }
