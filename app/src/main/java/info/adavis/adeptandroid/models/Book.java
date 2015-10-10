@@ -1,6 +1,5 @@
 package info.adavis.adeptandroid.models;
 
-
 public class Book {
 
     String title;

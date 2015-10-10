@@ -20,9 +20,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import info.adavis.adeptandroid.AdeptAndroid;
 import info.adavis.adeptandroid.models.Book;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.adapters.BooksAdapter;
+import info.adavis.adeptandroid.utils.PaymentsManager;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHARSET_NAME = "UTF-8";
 
     private List<Book> books;
+    private PaymentsManager paymentsManager;
 
     @Bind(R.id.recyclerView) RecyclerView recyclerView;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        paymentsManager = ((AdeptAndroid) getApplication()).getPaymentsManager();
+
         initDataSet();
         configureLayout();
     }
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new BooksAdapter(this, books));
+        recyclerView.setAdapter(new BooksAdapter(this, books, paymentsManager));
     }
 
     private void initDataSet() {

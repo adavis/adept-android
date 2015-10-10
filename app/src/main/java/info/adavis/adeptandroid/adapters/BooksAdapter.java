@@ -1,19 +1,3 @@
-/*
-* Copyright (C) 2014 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
 package info.adavis.adeptandroid.adapters;
 
 import android.content.Context;
@@ -31,16 +15,18 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import info.adavis.adeptandroid.models.Book;
 import info.adavis.adeptandroid.R;
+import info.adavis.adeptandroid.models.Book;
+import info.adavis.adeptandroid.utils.PaymentsManager;
 import timber.log.Timber;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 
     private WeakReference<Context> context;
     private List<Book> books;
+    private PaymentsManager paymentsManager;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.titleTextView) TextView titleTextView;
         @Bind(R.id.authorTextView) TextView authorTextView;
@@ -51,12 +37,20 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
+            v.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            paymentsManager.purchaseBook(books.get(getAdapterPosition()));
+        }
+
     }
 
-    public BooksAdapter(Context context, List<Book> books) {
+    public BooksAdapter(Context context, List<Book> books, PaymentsManager paymentsManager) {
         this.context = new WeakReference<>(context);
         this.books = books;
+        this.paymentsManager = paymentsManager;
     }
 
     @Override
@@ -94,4 +88,5 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     public int getItemCount() {
         return books.size();
     }
+
 }
