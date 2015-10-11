@@ -2,7 +2,6 @@ package info.adavis.adeptandroid;
 
 import android.app.Application;
 
-import info.adavis.adeptandroid.models.User;
 import info.adavis.adeptandroid.utils.PaymentsManager;
 import timber.log.Timber;
 
