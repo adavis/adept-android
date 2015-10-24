@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHARSET_NAME = "UTF-8";
 
     private List<Book> books;
+    private BooksAdapter booksAdapter;
 
     @Bind(R.id.recyclerView) RecyclerView recyclerView;
 
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initDataSet();
+
+        booksAdapter = new BooksAdapter(this, books);
+
         configureLayout();
     }
 
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new BooksAdapter(this, books));
+        recyclerView.setAdapter(booksAdapter);
     }
 
     private void initDataSet() {

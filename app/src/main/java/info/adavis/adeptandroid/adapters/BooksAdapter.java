@@ -94,4 +94,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     public int getItemCount() {
         return books.size();
     }
+
+    public void updateBooks(List<Book> books) {
+        this.books = books;
+        notifyDataSetChanged();
+    }
 }
