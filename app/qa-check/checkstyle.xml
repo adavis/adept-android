@@ -4,12 +4,12 @@
     "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 
 <module name="Checker">
-    <module name="FileLength"><property name="max" value="600"/></module>
+    <module name="FileLength"><property name="max" value="400"/></module>
 
     <module name="TreeWalker">
         <module name="MethodLength"><property name="max" value="40"/></module>
-        <module name="LineLength"><property name="max" value="160"/></module>
-        <module name="ParameterNumber"><property name="max" value="6"/></module>
+        <module name="LineLength"><property name="max" value="120"/></module>
+        <module name="ParameterNumber"><property name="max" value="4"/></module>
         <module name="CyclomaticComplexity"><property name="max" value="8"/></module>
         <module name="NestedIfDepth"><property name="max" value="3"/></module>
         <module name="RedundantImport"/>
