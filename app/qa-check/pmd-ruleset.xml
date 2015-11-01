@@ -22,5 +22,11 @@
         <exclude name="ShortMethodName" />
         <exclude name="ShortVariable" />
         <exclude name="VariableNamingConventions" />
+        <exclude name="ShortClassName" />
+    </rule>
+    <rule ref="rulesets/java/naming.xml/ShortClassName">
+        <properties>
+            <property name="minimum" value="3"/>
+        </properties>
     </rule>
 </ruleset>
