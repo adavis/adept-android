@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package info.adavis.adeptandroid.adapters;
+package info.adavis.adeptandroid.books;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -93,5 +93,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return books.size();
+    }
+
+    public void updateBooks(List<Book> books) {
+        this.books = books;
+        notifyDataSetChanged();
     }
 }
