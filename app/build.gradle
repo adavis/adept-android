@@ -17,10 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 ext {
-    supportLibraryVersion = '23.0.1'
+    supportLibraryVersion = '23.1.0'
     okhttpVersion = '2.4.0'
 }
 
