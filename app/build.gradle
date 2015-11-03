@@ -19,6 +19,7 @@ android {
     }
     lintOptions {
         abortOnError false
+        lintConfig file('./qa-check/lint.xml')
     }
 }
 
@@ -37,7 +38,6 @@ dependencies {
     compile "com.squareup.okhttp:okhttp-urlconnection:$okhttpVersion"
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:3.1.0'
-    compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.mcxiaoke.volley:library:1.0.18'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.immutables:gson:2.1.0.alpha'
