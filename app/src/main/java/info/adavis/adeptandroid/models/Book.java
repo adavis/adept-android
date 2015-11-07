@@ -1,5 +1,7 @@
 package info.adavis.adeptandroid.models;
 
+import java.math.BigDecimal;
+
 public class Book {
 
     String title;
@@ -7,6 +9,7 @@ public class Book {
     String bookUrl;
     String imageUrl;
     String displayDate;
+    BigDecimal price;
     int numberOfPages;
 
     public String getTitle() {
@@ -37,4 +40,14 @@ public class Book {
     public String toString() {
         return "Book{" + "title='" + title + '\'' + '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+
+        Book book = (Book) o;
+        return !title.equals(book.title);
+    }
+
 }

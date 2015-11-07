@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.models.Book;
+import timber.log.Timber;
 
 public class BooksActivity extends AppCompatActivity implements BooksContract.View {
 
@@ -31,7 +33,11 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         booksPresenter = new BooksPresenter(this);
         booksAdapter = new BooksAdapter(this, new ArrayList<Book>(0));
 
-        booksPresenter.initDataSet(getResources().openRawResource(R.raw.sample_data));
+        try {
+            booksPresenter.initDataSet(getResources().openRawResource(R.raw.sample_data));
+        } catch (IOException e) {
+            Timber.e(e, "exception");
+        }
 
         configureLayout();
     }

@@ -14,7 +14,6 @@ import java.io.Writer;
 import java.util.List;
 
 import info.adavis.adeptandroid.models.Book;
-import timber.log.Timber;
 
 public class BooksPresenter {
 

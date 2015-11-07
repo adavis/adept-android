@@ -24,7 +24,7 @@ android {
 }
 
 ext {
-    supportLibraryVersion = '23.1.0'
+    supportLibraryVersion = '23.0.0'
     okhttpVersion = '2.4.0'
 }
 
