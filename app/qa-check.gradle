@@ -12,7 +12,7 @@ task checkstyle(type: Checkstyle) {
     exclude '**/gen/**'
 
     classpath = files()
-    ignoreFailures = false
+    ignoreFailures = true
 }
 
 task findbugs(type: FindBugs) {

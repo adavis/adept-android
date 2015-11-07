@@ -38,7 +38,7 @@ public class BooksPresenter {
                 writer.write(buffer, 0, n);
             }
         } catch(Exception e) {
-            Timber.e("an exception occurred",e);
+            e.printStackTrace();
         } finally {
             if (is != null)
                 is.close();
@@ -48,8 +48,11 @@ public class BooksPresenter {
         
 
         if (json !=null){
-            List<Book> books = new Gson().fromJson( new StringReader(json), new TypeToken<List<Book>>( ) { }.getType( ));
-            booksView.showBooks(books);
+            if (booksView != null) {
+                List<Book> books = new Gson().fromJson(new StringReader(json), new TypeToken<List<Book>>() {
+                }.getType());
+                booksView.showBooks(books);
+            }
         }
     }
 }
