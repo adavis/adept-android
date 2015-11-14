@@ -6,12 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
+import info.adavis.adeptandroid.data.BooksRepositoryImpl;
 import info.adavis.adeptandroid.models.Book;
 
 public class BooksActivity extends AppCompatActivity implements BooksContract.View {
@@ -28,10 +29,10 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
 
         ButterKnife.bind(this);
 
-        booksPresenter = new BooksPresenter(this);
-        booksAdapter = new BooksAdapter(this, new ArrayList<Book>(0));
+        booksPresenter = new BooksPresenter(new BooksRepositoryImpl(), this);
+        booksAdapter = new BooksAdapter(this, Collections.<Book>emptyList());
 
-        booksPresenter.initDataSet(getResources().openRawResource(R.raw.sample_data));
+        booksPresenter.initDataSet();
 
         configureLayout();
     }

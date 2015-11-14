@@ -6,9 +6,13 @@ import timber.log.Timber;
 
 public class AdeptAndroid extends Application {
 
+    public static AdeptAndroid app = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        app = this;
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
