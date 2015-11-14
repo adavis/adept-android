@@ -2,6 +2,7 @@ package info.adavis.adeptandroid.data;
 
 import android.support.annotation.NonNull;
 
+import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,12 +20,16 @@ import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class BooksRepositoryImpl implements BooksRepository {
 
     public static final String CHARSET_NAME = "UTF-8";
 
     @Override
     public void getBooks(@NonNull LoadBooksCallback callback) {
+        checkNotNull(callback);
+
         String json = null;
         InputStream is = AdeptAndroid.app.getResources().openRawResource(R.raw.sample_data);
 
@@ -34,15 +39,17 @@ public class BooksRepositoryImpl implements BooksRepository {
             Timber.e("an exception occurred", e);
         }
 
-        if (json != null) {
-            List<Book> books = new Gson().fromJson(new StringReader(json), new TypeToken<List<Book>>() {
-            }.getType());
+        if (!Strings.isNullOrEmpty(json)) {
+            List<Book> books = new Gson().fromJson(new StringReader(json),
+                                                    new TypeToken<List<Book>>() {}.getType());
 
             callback.onBooksLoaded(books);
         }
     }
 
     private String getJsonData(InputStream is) throws Exception {
+        checkNotNull(is);
+
         Writer writer = new StringWriter();
         try {
             Reader reader = new BufferedReader(new InputStreamReader(is, CHARSET_NAME));
@@ -52,9 +59,7 @@ public class BooksRepositoryImpl implements BooksRepository {
                 writer.write(buffer, 0, n);
             }
         } finally {
-            if (is != null) {
-                is.close();
-            }
+            is.close();
         }
 
         return writer.toString();

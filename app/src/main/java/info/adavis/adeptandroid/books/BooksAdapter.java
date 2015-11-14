@@ -35,6 +35,8 @@ import info.adavis.adeptandroid.models.Book;
 import info.adavis.adeptandroid.R;
 import timber.log.Timber;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 
     private WeakReference<Context> context;
@@ -96,7 +98,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     }
 
     public void updateBooks(List<Book> books) {
-        this.books = books;
+        this.books = checkNotNull(books);
         notifyDataSetChanged();
     }
 }
