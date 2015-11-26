@@ -24,7 +24,7 @@ public class BooksActivityTest {
             new ActivityTestRule<>(BooksActivity.class);
 
     @Test
-    public void listIsPresent() {
+    public void listShouldBePresent() {
         onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
     }
 

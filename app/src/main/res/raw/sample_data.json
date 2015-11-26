@@ -38,6 +38,7 @@
   {
     "title" : "Test Driven Development: By Example",
     "author" : "Kent Beck",
+    "bookUrl" : "http://amzn.to",
     "imageUrl" : "http://adavis.github.io/adept-android/images/tdd.jpg",
     "displayDate" : "November 18, 2002",
     "numberOfPages" : 240

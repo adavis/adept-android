@@ -2,4 +2,16 @@
     <Match>
         <Class name="~.*R\$.*"/>
     </Match>
+    <Match>
+        <Bug pattern="MS_CANNOT_BE_FINAL" />
+        <Class name="info.adavis.adeptandroid.AdeptAndroid"/>
+    </Match>
+    <Match>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+        <Class name="info.adavis.adeptandroid.AdeptAndroid"/>
+    </Match>
+    <Match>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD" />
+        <Class name=".*Test\$.*"/>
+    </Match>
 </FindBugsFilter>

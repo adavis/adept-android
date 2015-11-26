@@ -1,5 +1,7 @@
 package info.adavis.adeptandroid.books;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +32,7 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         ButterKnife.bind(this);
 
         booksPresenter = new BooksPresenter(new BooksRepositoryImpl(), this);
-        booksAdapter = new BooksAdapter(this, Collections.<Book>emptyList());
+        booksAdapter = new BooksAdapter(this, Collections.<Book>emptyList(), itemListener);
 
         booksPresenter.initDataSet();
 
@@ -49,5 +51,13 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(booksAdapter);
     }
+
+    private BooksAdapter.BookItemListener itemListener = new BooksAdapter.BookItemListener() {
+        @Override
+        public void onBookClick(Book clickedBook) {
+            Uri bookUrl = Uri.parse(clickedBook.getBookUrl());
+            startActivity(new Intent(Intent.ACTION_VIEW, bookUrl));
+        }
+    };
 
 }

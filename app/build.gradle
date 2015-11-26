@@ -41,27 +41,25 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.immutables:gson:2.1.0'
     compile 'com.google.guava:guava:18.0'
-    compile "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
 
-    androidTestCompile ("com.android.support.test.espresso:espresso-intents:$espressoVersion")
-    androidTestCompile ("com.android.support.test.espresso:espresso-core:$espressoVersion")
-    androidTestCompile ("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
-        exclude module: 'recyclerview-v7'
-        exclude module: 'support-v4'
-    }
-    androidTestCompile ("com.android.support.test:runner:$runnerVersion")
-    androidTestCompile ("com.android.support.test:rules:$runnerVersion")
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestCompile "com.android.support.test:runner:$runnerVersion"
+    androidTestCompile "com.android.support.test:rules:$runnerVersion"
 }
 
 /*
 Resolves dependency versions across test and production APKs, specifically, transitive
-dependencies. This is required since Espresso internally has a dependency on support-annotations.
+dependencies.
 */
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
+    resolutionStrategy.force "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    resolutionStrategy.force "com.android.support:support-v4:$supportLibraryVersion"
 }
 
 /*
@@ -71,7 +69,6 @@ excluding these dependencies from your test configuration will result in an dex 
 at runtime. More info in this tools bug: (https://code.google.com/p/android/issues/detail?id=192497)
 */
 configurations.compile.dependencies.each { compileDependency ->
-    println "Excluding compile dependency: ${compileDependency.getName()}"
     configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
         configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
     }
