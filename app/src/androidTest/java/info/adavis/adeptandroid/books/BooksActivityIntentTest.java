@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.MediumTest;
+import android.test.suitebuilder.annotation.LargeTest;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,14 +23,13 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@LargeTest
 public class BooksActivityIntentTest {
 
     @Rule
     public IntentsTestRule<BooksActivity> booksActivityTestRule =
             new IntentsTestRule<>(BooksActivity.class);
 
-    @Ignore
     @Test
     public void listItemClickShouldLaunchBrowser() {
         onView(withId(R.id.recyclerView)).perform(

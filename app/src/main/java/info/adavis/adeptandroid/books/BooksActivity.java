@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.data.BooksRepositoryImpl;
 import info.adavis.adeptandroid.models.Book;
+import timber.log.Timber;
 
 public class BooksActivity extends AppCompatActivity implements BooksContract.View {
 
@@ -55,6 +56,7 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
     private BooksAdapter.BookItemListener itemListener = new BooksAdapter.BookItemListener() {
         @Override
         public void onBookClick(Book clickedBook) {
+            Timber.d("book clicked: " + clickedBook);
             Uri bookUrl = Uri.parse(clickedBook.getBookUrl());
             startActivity(new Intent(Intent.ACTION_VIEW, bookUrl));
         }

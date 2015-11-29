@@ -12,6 +12,7 @@
     </Match>
     <Match>
         <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD" />
-        <Class name=".*Test\$.*"/>
+        <Class name="info.adavis.adeptandroid.books.BooksActivityIntentTest"/>
+        <Class name="info.adavis.adeptandroid.books.BooksActivityTest"/>
     </Match>
 </FindBugsFilter>
