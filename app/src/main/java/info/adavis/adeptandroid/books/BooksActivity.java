@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,41 +13,53 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
+import info.adavis.adeptandroid.di.Injector;
 import info.adavis.adeptandroid.models.Book;
 
-public class BooksActivity extends AppCompatActivity implements BooksContract.View {
+public class BooksActivity extends AppCompatActivity implements BooksContract.View
+{
 
     private BooksPresenter booksPresenter;
     private BooksAdapter booksAdapter;
 
-    @Bind(R.id.recyclerView) RecyclerView recyclerView;
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void onCreate (Bundle savedInstanceState)
+    {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_main );
 
-        ButterKnife.bind(this);
+        ButterKnife.bind( this );
 
-        booksPresenter = new BooksPresenter(this);
-        booksAdapter = new BooksAdapter(this, new ArrayList<Book>(0));
+        booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
+        booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ) );
 
-        booksPresenter.initDataSet(getResources().openRawResource(R.raw.sample_data));
+        booksPresenter.initDataSet();
 
         configureLayout();
     }
 
     @Override
-    public void showBooks(List<Book> books) {
-        booksAdapter.updateBooks(books);
+    public void showBooks (List<Book> books)
+    {
+        booksAdapter.updateBooks( books );
     }
 
-    private void configureLayout() {
-        setSupportActionBar((Toolbar) ButterKnife.findById(this, R.id.toolbar));
+    @Override
+    public void showErrorMessage ()
+    {
+        Toast.makeText( this, R.string.books_loading_unsuccessful, Toast.LENGTH_SHORT).show();
+    }
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(booksAdapter);
+    private void configureLayout ()
+    {
+        setSupportActionBar( (Toolbar) ButterKnife.findById( this, R.id.toolbar ) );
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
+        recyclerView.setLayoutManager( layoutManager );
+        recyclerView.setAdapter( booksAdapter );
     }
 
 }
