@@ -24,7 +24,7 @@ android {
 
 ext {
     supportLibraryVersion = '23.3.0'
-    retrofitVersion = '2.0.0'
+    retrofitVersion = '2.0.2'
 }
 
 dependencies {
@@ -34,12 +34,10 @@ dependencies {
     compile "com.android.support:design:$supportLibraryVersion"
 
     // REST Interactions
-    compile ("com.squareup.retrofit2:retrofit:$retrofitVersion") {
-        exclude module: 'okhttp'
-    }
+    compile ("com.squareup.retrofit2:retrofit:$retrofitVersion")
 
     // JSON Parsing
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.code.gson:gson:2.6.1'
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // View Injection
