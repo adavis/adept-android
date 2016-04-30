@@ -12,7 +12,7 @@
     android:background="@color/indigo_100"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
-    tools:context=".MainActivity">
+    tools:context=".books.BooksActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

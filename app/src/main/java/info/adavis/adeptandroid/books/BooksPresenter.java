@@ -2,6 +2,7 @@ package info.adavis.adeptandroid.books;
 
 import java.util.List;
 
+import info.adavis.adeptandroid.data.BookService;
 import info.adavis.adeptandroid.models.Book;
 import retrofit2.Call;
 import retrofit2.Callback;

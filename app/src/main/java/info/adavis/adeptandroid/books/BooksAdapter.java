@@ -31,16 +31,17 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import info.adavis.adeptandroid.models.Book;
 import info.adavis.adeptandroid.R;
+import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 
     private WeakReference<Context> context;
     private List<Book> books;
+    private BookItemListener itemListener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
 
         @Bind(R.id.titleTextView) TextView titleTextView;
         @Bind(R.id.authorTextView) TextView authorTextView;
@@ -48,15 +49,28 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         @Bind(R.id.pagesTextView) TextView pagesTextView;
         @Bind(R.id.imageView) ImageView imageView;
 
-        public ViewHolder(View v) {
+        BookItemListener itemListener;
+
+        public ViewHolder(View v, BookItemListener itemListener) {
             super(v);
             ButterKnife.bind(this, v);
+
+            this.itemListener = itemListener;
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick (View v)
+        {
+            Book book = getItem(getAdapterPosition());
+            this.itemListener.onBookClick( book.getId() );
         }
     }
 
-    public BooksAdapter(Context context, List<Book> books) {
+    public BooksAdapter (Context context, List<Book> books, BookItemListener itemListener) {
         this.context = new WeakReference<>(context);
         this.books = books;
+        this.itemListener = itemListener;
     }
 
     @Override
@@ -64,7 +78,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.book_row_item, viewGroup, false);
 
-        return new ViewHolder(v);
+        return new ViewHolder(v, this.itemListener);
     }
 
     @Override
@@ -98,5 +112,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     public void updateBooks(List<Book> books) {
         this.books = books;
         notifyDataSetChanged();
+    }
+
+    private Book getItem(int adapterPosition) {
+        return books.get(adapterPosition);
+    }
+
+    public interface BookItemListener {
+        void onBookClick(long id);
     }
 }

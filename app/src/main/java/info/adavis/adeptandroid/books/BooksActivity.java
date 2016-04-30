@@ -1,5 +1,7 @@
 package info.adavis.adeptandroid.books;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,13 +15,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
+import info.adavis.adeptandroid.book.BookActivity;
 import info.adavis.adeptandroid.di.Injector;
 import info.adavis.adeptandroid.models.Book;
+import timber.log.Timber;
 
 public class BooksActivity extends AppCompatActivity implements BooksContract.View
 {
 
-    private BooksPresenter booksPresenter;
     private BooksAdapter booksAdapter;
 
     @Bind(R.id.recyclerView)
@@ -33,8 +36,8 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
 
         ButterKnife.bind( this );
 
-        booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
-        booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ) );
+        BooksPresenter booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
+        booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ), itemListener );
 
         booksPresenter.initDataSet();
 
@@ -60,6 +63,20 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setAdapter( booksAdapter );
+        recyclerView.setHasFixedSize( true );
     }
+
+    private BooksAdapter.BookItemListener itemListener = new BooksAdapter.BookItemListener()
+    {
+
+        @Override
+        public void onBookClick (long id)
+        {
+            Timber.d( "book clicked id: %d", id );
+            Intent intent = new Intent( BooksActivity.this, BookActivity.class );
+            intent.putExtra( BookActivity.EXTRA_BOOK_ID, id );
+            startActivity(intent);
+        }
+    };
 
 }

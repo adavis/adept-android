@@ -3,4 +3,11 @@
     <string name="thumbnail_image">thumbnail</string>
     <string name="pages_label">%d pages</string>
     <string name="books_loading_unsuccessful">Unable to load the books.</string>
+    <string name="book_loading_unsuccessful">Unable to load the book</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut enim et augue interdum pellentesque.
+        Maecenas elementum nibh nulla, sit amet egestas dui tristique efficitur. Sed vitae feugiat magna. Nunc sed eros nulla.
+        In molestie et neque fringilla egestas. Ut elementum scelerisque ligula in pulvinar.\n\nUt in neque at
+        leo rutrum vestibulum ac vel lectus. Duis in lobortis erat, a rhoncus mauris.
+        Curabitur a aliquet massa. Quisque aliquam mauris id molestie egestas.
+        Vivamus vitae massa cursus, aliquam urna sit amet, placerat nibh.</string>
 </resources>

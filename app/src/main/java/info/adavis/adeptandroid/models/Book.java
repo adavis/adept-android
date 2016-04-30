@@ -3,12 +3,17 @@ package info.adavis.adeptandroid.models;
 
 public class Book {
 
+    long id;
     String title;
     String author;
     String bookUrl;
     String imageUrl;
     String displayDate;
     int numberOfPages;
+
+    public long getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

@@ -1,7 +1,7 @@
 package info.adavis.adeptandroid.di;
 
 import info.adavis.adeptandroid.Constants;
-import info.adavis.adeptandroid.books.BookService;
+import info.adavis.adeptandroid.data.BookService;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
