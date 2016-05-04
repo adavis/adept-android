@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package info.adavis.adeptandroid.books;
+package info.adavis.adeptandroid.books.books;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -83,8 +83,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Timber.d("Element " + position + " set.");
-
         Book book = books.get(position);
 
         viewHolder.titleTextView.setText(book.getTitle());

@@ -10,4 +10,8 @@
         leo rutrum vestibulum ac vel lectus. Duis in lobortis erat, a rhoncus mauris.
         Curabitur a aliquet massa. Quisque aliquam mauris id molestie egestas.
         Vivamus vitae massa cursus, aliquam urna sit amet, placerat nibh.</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="description">Description</string>
+    <string name="book_saving_unsuccessful">Unable to save the book</string>
 </resources>

@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".books.book.BookActivity">
+    android:background="@color/indigo_100"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    tools:context=".books.addbook.AddBookActivity">
 
     <include layout="@layout/toolbar"/>
 
@@ -14,41 +17,48 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/indigo_100"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <EditText
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Large Text"
+            android:hint="@string/title"
             android:textSize="30sp"
-            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:paddingLeft="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"/>
 
-        <TextView
+        <EditText
             android:id="@+id/authorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="8dp"
-            android:text="Medium Text"
+            android:hint="@string/author"
             android:paddingLeft="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"/>
 
-        <TextView
+        <EditText
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/lorem_ipsum"
+            android:gravity="top"
+            android:hint="@string/description"
             android:paddingLeft="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"/>
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save_book_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_save"/>
 
 </android.support.design.widget.CoordinatorLayout>

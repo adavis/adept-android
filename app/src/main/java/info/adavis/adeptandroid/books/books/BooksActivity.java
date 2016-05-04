@@ -1,7 +1,6 @@
-package info.adavis.adeptandroid.books;
+package info.adavis.adeptandroid.books.books;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +13,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.book.BookActivity;
+import info.adavis.adeptandroid.books.addbook.AddBookActivity;
+import info.adavis.adeptandroid.books.book.BookActivity;
 import info.adavis.adeptandroid.di.Injector;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
@@ -28,6 +29,8 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    private BooksPresenter booksPresenter;
+
     @Override
     protected void onCreate (Bundle savedInstanceState)
     {
@@ -36,12 +39,23 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
 
         ButterKnife.bind( this );
 
-        BooksPresenter booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
+        booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
         booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ), itemListener );
 
-        booksPresenter.initDataSet();
-
         configureLayout();
+    }
+
+    @Override
+    protected void onResume ()
+    {
+        super.onResume();
+        booksPresenter.initDataSet();
+    }
+
+    @OnClick(R.id.add_book_fab)
+    public void fabClicked()
+    {
+        startActivity( new Intent( this, AddBookActivity.class ) );
     }
 
     @Override

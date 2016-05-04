@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.book;
+package info.adavis.adeptandroid.books.book;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +22,9 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
     @Bind( R.id.authorText )
     TextView authorText;
 
+    @Bind( R.id.descriptionText )
+    TextView descriptionText;
+
     @Override
     protected void onCreate (Bundle savedInstanceState)
     {
@@ -41,6 +44,7 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
     {
         titleText.setText( book.getTitle() );
         authorText.setText( book.getAuthor() );
+        descriptionText.setText( book.getDescription() );
     }
 
     @Override
