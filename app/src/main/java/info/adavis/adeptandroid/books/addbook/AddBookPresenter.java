@@ -39,6 +39,7 @@ public class AddBookPresenter
                     try
                     {
                         Timber.i( "The response failed: %s", response.errorBody().string() );
+                        bookView.showErrorMessage();
                     }
                     catch ( IOException ignored )
                     {
