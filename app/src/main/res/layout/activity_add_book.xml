@@ -40,6 +40,17 @@
             android:paddingRight="@dimen/small_margin"/>
 
         <EditText
+            android:id="@+id/numPagesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/author"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:inputType="numberDecimal"/>
+
+        <EditText
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="200dp"

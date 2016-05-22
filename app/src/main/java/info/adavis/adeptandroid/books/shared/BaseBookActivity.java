@@ -24,6 +24,9 @@ public class BaseBookActivity extends AppCompatActivity implements BookContract.
     @Bind( R.id.authorText )
     protected EditText authorText;
 
+    @Bind( R.id.numPagesText )
+    protected EditText numPagesText;
+
     @Bind( R.id.descriptionText )
     protected EditText descriptionText;
 

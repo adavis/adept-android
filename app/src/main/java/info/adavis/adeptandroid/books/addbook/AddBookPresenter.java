@@ -21,9 +21,9 @@ public class AddBookPresenter
         this.service = service;
     }
 
-    public void saveBook (String title, String author, String description)
+    public void saveBook (String title, String author, String numPages, String description)
     {
-        Book book = new Book( title, author, description );
+        Book book = new Book( title, author, Integer.parseInt( numPages ), description );
 
         service.saveBook( book ).enqueue( new Callback<Book>()
         {

@@ -15,10 +15,11 @@ public class Book implements Parcelable
     private String displayDate;
     private int numberOfPages;
 
-    public Book (String title, String author, String description)
+    public Book (String title, String author, int numberOfPages, String description)
     {
         this.title = title;
         this.author = author;
+        this.numberOfPages = numberOfPages;
         this.description = description;
     }
 

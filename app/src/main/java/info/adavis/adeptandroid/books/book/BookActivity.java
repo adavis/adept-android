@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,6 +29,9 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
 
     @Bind( R.id.authorText )
     TextView authorText;
+
+    @Bind( R.id.numPagesText )
+    TextView numPagesText;
 
     @Bind( R.id.descriptionText )
     TextView descriptionText;
@@ -54,6 +59,7 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
 
         titleText.setText( book.getTitle() );
         authorText.setText( book.getAuthor() );
+        numPagesText.setText( String.format( Locale.getDefault(), "%d pages", book.getNumberOfPages() ) );
         descriptionText.setText( book.getDescription() );
     }
 

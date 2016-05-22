@@ -41,6 +41,17 @@
             android:paddingRight="@dimen/small_margin"/>
 
         <TextView
+            android:id="@+id/numPagesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="italic"
+            android:layout_marginBottom="8dp"
+            android:text="Medium Text"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"/>
+
+        <TextView
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

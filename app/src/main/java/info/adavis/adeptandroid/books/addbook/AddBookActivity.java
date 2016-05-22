@@ -25,8 +25,10 @@ public class AddBookActivity extends BaseBookActivity
     @OnClick( R.id.save_book_fab)
     public void fabClicked()
     {
-        presenter.saveBook( titleText.getText().toString(), authorText.getText().toString(),
-                descriptionText.getText().toString() );
+        presenter.saveBook( titleText.getText().toString(),
+                            authorText.getText().toString(),
+                            numPagesText.getText().toString(),
+                            descriptionText.getText().toString() );
     }
 
 }

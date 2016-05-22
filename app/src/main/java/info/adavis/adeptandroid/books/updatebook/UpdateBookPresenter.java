@@ -23,10 +23,11 @@ public class UpdateBookPresenter
         this.service = service;
     }
 
-    public void updateBook (String title, String author, String description)
+    public void updateBook (String title, String author, String numPages, String description)
     {
         book.setTitle( title );
         book.setAuthor( author );
+        book.setNumberOfPages( Integer.parseInt( numPages ) );
         book.setDescription( description );
 
         service.updateBook( book.getId(), book ).enqueue( new Callback<Book>()
