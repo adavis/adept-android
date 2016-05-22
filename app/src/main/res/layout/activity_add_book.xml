@@ -7,9 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/indigo_100"
-    android:paddingLeft="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_vertical_margin"
-    tools:context=".books.addbook.AddBookActivity">
+    tools:context=".books.shared.BaseBookActivity">
 
     <include layout="@layout/toolbar"/>
 

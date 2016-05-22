@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.books.book;
+package info.adavis.adeptandroid.books.shared;
 
 import info.adavis.adeptandroid.models.Book;
 

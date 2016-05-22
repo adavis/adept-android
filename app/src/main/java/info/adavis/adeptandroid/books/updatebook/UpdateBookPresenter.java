@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.books.addbook;
+package info.adavis.adeptandroid.books.updatebook;
 
 import java.io.IOException;
 
@@ -10,22 +10,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class AddBookPresenter
+public class UpdateBookPresenter
 {
     private final BookContract.View bookView;
     private final BookService service;
 
-    public AddBookPresenter (BookContract.View bookView, BookService service)
+    private Book book;
+
+    public UpdateBookPresenter (BookContract.View bookView, BookService service)
     {
         this.bookView = bookView;
         this.service = service;
     }
 
-    public void saveBook (String title, String author, String description)
+    public void updateBook (String title, String author, String description)
     {
-        Book book = new Book( title, author, description );
+        book.setTitle( title );
+        book.setAuthor( author );
+        book.setDescription( description );
 
-        service.saveBook( book ).enqueue( new Callback<Book>()
+        service.updateBook( book.getId(), book ).enqueue( new Callback<Book>()
         {
             @Override
             public void onResponse (Call<Book> call, Response<Book> response)
@@ -33,7 +37,7 @@ public class AddBookPresenter
                 if ( response.isSuccessful() )
                 {
                     bookView.showBook( response.body() );
-                    Timber.i( "Book data was successfully saved to the API." );
+                    Timber.i( "Book data was successfully updated in the API." );
                 }
                 else
                 {
@@ -53,8 +57,18 @@ public class AddBookPresenter
             public void onFailure (Call<Book> call, Throwable t)
             {
                 bookView.showErrorMessage();
-                Timber.e( t, "Unable to save the book data to the API." );
+                Timber.e( t, "Unable to update the book in the API." );
             }
         } );
+    }
+
+    public Book getBook ()
+    {
+        return book;
+    }
+
+    public void setBook (Book book)
+    {
+        this.book = book;
     }
 }

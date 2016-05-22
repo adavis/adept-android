@@ -1,5 +1,6 @@
 package info.adavis.adeptandroid.books.book;
 
+import info.adavis.adeptandroid.books.shared.BookContract;
 import info.adavis.adeptandroid.data.BookService;
 import info.adavis.adeptandroid.models.Book;
 import retrofit2.Call;

@@ -1,5 +1,6 @@
 package info.adavis.adeptandroid.books.book;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,9 +9,14 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
+import info.adavis.adeptandroid.books.books.BooksActivity;
+import info.adavis.adeptandroid.books.shared.BookContract;
+import info.adavis.adeptandroid.books.updatebook.UpdateBookActivity;
 import info.adavis.adeptandroid.di.Injector;
 import info.adavis.adeptandroid.models.Book;
+import timber.log.Timber;
 
 public class BookActivity extends AppCompatActivity implements BookContract.View
 {
@@ -24,6 +30,8 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
 
     @Bind( R.id.descriptionText )
     TextView descriptionText;
+
+    private Book book;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -42,6 +50,8 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
     @Override
     public void showBook (Book book)
     {
+        this.book = book;
+
         titleText.setText( book.getTitle() );
         authorText.setText( book.getAuthor() );
         descriptionText.setText( book.getDescription() );
@@ -56,6 +66,18 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
     private void configureLayout ()
     {
         setSupportActionBar( (Toolbar) ButterKnife.findById( this, R.id.toolbar ) );
+    }
+
+    @OnClick( R.id.edit_book_fab)
+    public void fabClicked()
+    {
+        Timber.d( "edit book with id: %d", this.book.getId() );
+
+        Intent intent = new Intent( BookActivity.this, UpdateBookActivity.class );
+        intent.putExtra( UpdateBookActivity.EXTRA_BOOK, this.book );
+        startActivity(intent);
+
+        finish();
     }
 
 }

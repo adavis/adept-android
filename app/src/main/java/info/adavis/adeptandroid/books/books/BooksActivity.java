@@ -23,7 +23,6 @@ import timber.log.Timber;
 
 public class BooksActivity extends AppCompatActivity implements BooksContract.View
 {
-
     private BooksAdapter booksAdapter;
 
     @Bind(R.id.recyclerView)
@@ -86,7 +85,8 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         @Override
         public void onBookClick (long id)
         {
-            Timber.d( "book clicked id: %d", id );
+            Timber.d( "Book clicked with id: %d", id );
+
             Intent intent = new Intent( BooksActivity.this, BookActivity.class );
             intent.putExtra( BookActivity.EXTRA_BOOK_ID, id );
             startActivity(intent);
