@@ -2,6 +2,7 @@ package info.adavis.adeptandroid.di;
 
 import info.adavis.adeptandroid.BuildConfig;
 import info.adavis.adeptandroid.Constants;
+import info.adavis.adeptandroid.data.BookRepository;
 import info.adavis.adeptandroid.data.BookService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -51,6 +52,11 @@ public class Injector
     public static BookService provideBookService ()
     {
         return provideRetrofit( Constants.BASE_URL ).create( BookService.class );
+    }
+
+    public static BookRepository provideBookRepository ()
+    {
+        return new BookRepository();
     }
 
 }

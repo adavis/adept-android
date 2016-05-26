@@ -4,8 +4,14 @@ package info.adavis.adeptandroid.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Book implements Parcelable
+import io.realm.RealmModel;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
+
+@RealmClass
+public class Book implements Parcelable, RealmModel
 {
+    @PrimaryKey
     private long id;
     private String title;
     private String author;
@@ -14,6 +20,10 @@ public class Book implements Parcelable
     private String imageUrl;
     private String displayDate;
     private int numberOfPages;
+
+    public Book ()
+    {
+    }
 
     public Book (String title, String author, int numberOfPages, String description)
     {

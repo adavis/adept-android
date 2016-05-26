@@ -38,7 +38,9 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
 
         ButterKnife.bind( this );
 
-        booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
+        booksPresenter = new BooksPresenter( this,
+                                             Injector.provideBookService(),
+                                             Injector.provideBookRepository() );
         booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ), itemListener );
 
         configureLayout();

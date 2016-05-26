@@ -2,6 +2,7 @@ package info.adavis.adeptandroid.books.books;
 
 import java.util.List;
 
+import info.adavis.adeptandroid.data.BookRepository;
 import info.adavis.adeptandroid.data.BookService;
 import info.adavis.adeptandroid.models.Book;
 import retrofit2.Call;
@@ -13,15 +14,26 @@ public class BooksPresenter
 {
     private final BooksContract.View booksView;
     private final BookService service;
+    private final BookRepository bookRepository;
 
-    public BooksPresenter (BooksContract.View booksView, BookService service)
+    public BooksPresenter (BooksContract.View booksView, BookService service,
+                           BookRepository bookRepository)
     {
         this.booksView = booksView;
         this.service = service;
+        this.bookRepository = bookRepository;
     }
 
     public void initDataSet ()
     {
+        List<Book> books = bookRepository.query();
+        if ( !books.isEmpty() )
+        {
+            booksView.showBooks( books );
+            Timber.i( "Books data was loaded from database." );
+            return;
+        }
+
         service.getBooks().enqueue( new Callback<List<Book>>()
         {
             @Override
@@ -29,7 +41,10 @@ public class BooksPresenter
             {
                 if ( response.isSuccessful() )
                 {
-                    booksView.showBooks( response.body() );
+                    List<Book> books = response.body();
+                    booksView.showBooks( books );
+                    bookRepository.add( books );
+
                     Timber.i( "Books data was loaded from API." );
                 }
             }
