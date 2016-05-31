@@ -43,4 +43,23 @@ public class BooksPresenter
         } );
     }
 
+    public void removeBook (long id)
+    {
+        service.deleteBook( id ).enqueue( new Callback<Void>()
+        {
+            @Override
+            public void onResponse (Call<Void> call, Response<Void> response)
+            {
+                Timber.i( "Removed the book from API." );
+                booksView.refresh();
+            }
+
+            @Override
+            public void onFailure (Call<Void> call, Throwable t)
+            {
+                booksView.showErrorMessage();
+                Timber.e( t, "Unable to remove the book from the API." );
+            }
+        } );
+    }
 }

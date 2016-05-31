@@ -69,6 +69,12 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         Toast.makeText( this, R.string.books_loading_unsuccessful, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void refresh ()
+    {
+        booksPresenter.initDataSet();
+    }
+
     private void configureLayout ()
     {
         setSupportActionBar( (Toolbar) ButterKnife.findById( this, R.id.toolbar ) );
@@ -90,6 +96,14 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
             Intent intent = new Intent( BooksActivity.this, BookActivity.class );
             intent.putExtra( BookActivity.EXTRA_BOOK_ID, id );
             startActivity(intent);
+        }
+
+        @Override
+        public void onBookLongClick (long id)
+        {
+            Timber.d( "Book clicked with id: %d", id );
+
+            booksPresenter.removeBook( id );
         }
     };
 

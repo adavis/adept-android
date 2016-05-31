@@ -16,6 +16,8 @@ public interface BooksContract
         void showBooks (List<Book> books);
 
         void showErrorMessage ();
+
+        void refresh ();
     }
 
 }

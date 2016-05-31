@@ -41,7 +41,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     private List<Book> books;
     private BookItemListener itemListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener, View.OnLongClickListener
+    {
 
         @Bind(R.id.titleTextView) TextView titleTextView;
         @Bind(R.id.authorTextView) TextView authorTextView;
@@ -56,14 +57,24 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             ButterKnife.bind(this, v);
 
             this.itemListener = itemListener;
-            v.setOnClickListener(this);
+            v.setOnClickListener( this );
+            v.setOnLongClickListener( this );
         }
 
         @Override
         public void onClick (View v)
         {
-            Book book = getItem(getAdapterPosition());
+            Book book = getItem( getAdapterPosition() );
             this.itemListener.onBookClick( book.getId() );
+        }
+
+        @Override
+        public boolean onLongClick (View v)
+        {
+            Book book = getItem( getAdapterPosition() );
+            this.itemListener.onBookLongClick( book.getId() );
+
+            return true;
         }
     }
 
@@ -116,7 +127,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         return books.get(adapterPosition);
     }
 
-    public interface BookItemListener {
+    public interface BookItemListener
+    {
         void onBookClick(long id);
+
+        void onBookLongClick(long id);
     }
 }
