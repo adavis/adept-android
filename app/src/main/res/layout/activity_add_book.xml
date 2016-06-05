@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="8dp"
-            android:hint="@string/author"
+            android:hint="@string/pages"
             android:paddingLeft="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"
             android:inputType="numberDecimal"/>
