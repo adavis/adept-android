@@ -2,12 +2,14 @@ package info.adavis.adeptandroid.di;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import info.adavis.adeptandroid.AdeptAndroid;
 import info.adavis.adeptandroid.BuildConfig;
 import info.adavis.adeptandroid.Constants;
 import info.adavis.adeptandroid.data.BookService;
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -40,8 +42,7 @@ public class Injector
     {
         return new OkHttpClient.Builder()
                 .addInterceptor( provideHttpLoggingInterceptor() )
-                .addInterceptor( provideOfflineCacheInterceptor() )
-                .addNetworkInterceptor( provideRewriteCacheInterceptor() )
+                .addNetworkInterceptor( provideCacheInterceptor() )
                 .cache( provideCache() )
                 .build();
     }
@@ -76,24 +77,7 @@ public class Injector
         return httpLoggingInterceptor;
     }
 
-    public static Interceptor provideRewriteCacheInterceptor ()
-    {
-        return new Interceptor()
-        {
-            @Override
-            public Response intercept (Chain chain) throws IOException
-            {
-                Response response = chain.proceed( chain.request() );
-
-                // re-write response header to force use of cache
-                return response.newBuilder()
-                        .header( CACHE_CONTROL, "public, max-age=" + 60 * 2 ) // 2 minutes
-                        .build();
-            }
-        };
-    }
-
-    public static Interceptor provideOfflineCacheInterceptor ()
+    public static Interceptor provideCacheInterceptor ()
     {
         return new Interceptor()
         {
@@ -104,13 +88,25 @@ public class Injector
 
                 if ( !AdeptAndroid.hasNetwork() )
                 {
-                    // 1 week stale
+                    CacheControl cacheControl = new CacheControl.Builder()
+                            .maxStale( 7, TimeUnit.DAYS )
+                            .build();
+
                     request = request.newBuilder()
-                            .header( CACHE_CONTROL, "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7 )
+                            .cacheControl( cacheControl )
                             .build();
                 }
 
-                return chain.proceed( request );
+                Response response = chain.proceed( request );
+
+                // re-write response header to force use of cache
+                CacheControl cacheControl = new CacheControl.Builder()
+                        .maxAge( 2, TimeUnit.MINUTES )
+                        .build();
+
+                return response.newBuilder()
+                        .header( CACHE_CONTROL, cacheControl.toString() )
+                        .build();
             }
         };
     }
