@@ -17,7 +17,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS;
 import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
 /**
@@ -51,7 +51,7 @@ public class Injector
         Cache cache = null;
         try
         {
-            cache = new Cache( new File( AdeptAndroid.getInstance().getCacheDir(), "http" ),
+            cache = new Cache( new File( AdeptAndroid.getInstance().getCacheDir(), "http-cache" ),
                                10 * 1024 * 1024 ); // 10 MB
         }
         catch (Exception e)
@@ -72,7 +72,7 @@ public class Injector
                         Timber.d( message );
                     }
                 } );
-        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? BODY : NONE );
+        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? HEADERS : NONE );
         return httpLoggingInterceptor;
     }
 
@@ -102,16 +102,12 @@ public class Injector
             {
                 Request request = chain.request();
 
-                // Add Cache Control only for GET methods
-                if ( request.method().equals( "GET" ) )
+                if ( !AdeptAndroid.hasNetwork() )
                 {
-                    if ( !AdeptAndroid.hasNetwork() )
-                    {
-                        // 1 week stale
-                        request = request.newBuilder()
-                                .header( CACHE_CONTROL, "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7 )
-                                .build();
-                    }
+                    // 1 week stale
+                    request = request.newBuilder()
+                            .header( CACHE_CONTROL, "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7 )
+                            .build();
                 }
 
                 return chain.proceed( request );
