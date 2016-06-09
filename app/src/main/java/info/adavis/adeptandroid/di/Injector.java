@@ -42,6 +42,7 @@ public class Injector
     {
         return new OkHttpClient.Builder()
                 .addInterceptor( provideHttpLoggingInterceptor() )
+                .addInterceptor( provideOfflineCacheInterceptor() )
                 .addNetworkInterceptor( provideCacheInterceptor() )
                 .cache( provideCache() )
                 .build();
@@ -84,6 +85,27 @@ public class Injector
             @Override
             public Response intercept (Chain chain) throws IOException
             {
+                Response response = chain.proceed( chain.request() );
+
+                // re-write response header to force use of cache
+                CacheControl cacheControl = new CacheControl.Builder()
+                        .maxAge( 2, TimeUnit.MINUTES )
+                        .build();
+
+                return response.newBuilder()
+                        .header( CACHE_CONTROL, cacheControl.toString() )
+                        .build();
+            }
+        };
+    }
+
+    public static Interceptor provideOfflineCacheInterceptor ()
+    {
+        return new Interceptor()
+        {
+            @Override
+            public Response intercept (Chain chain) throws IOException
+            {
                 Request request = chain.request();
 
                 if ( !AdeptAndroid.hasNetwork() )
@@ -97,16 +119,7 @@ public class Injector
                             .build();
                 }
 
-                Response response = chain.proceed( request );
-
-                // re-write response header to force use of cache
-                CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge( 2, TimeUnit.MINUTES )
-                        .build();
-
-                return response.newBuilder()
-                        .header( CACHE_CONTROL, cacheControl.toString() )
-                        .build();
+                return chain.proceed( request );
             }
         };
     }
