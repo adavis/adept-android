@@ -1,36 +1,39 @@
 package info.adavis.adeptandroid.books.updatebook;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import info.adavis.adeptandroid.books.shared.BookContract;
 import info.adavis.adeptandroid.data.BookService;
 import info.adavis.adeptandroid.models.Book;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class UpdateBookPresenter
+class UpdateBookPresenter
 {
+    private static final String TITLE = "title";
+
     private final BookContract.View bookView;
     private final BookService service;
 
     private Book book;
 
-    public UpdateBookPresenter (BookContract.View bookView, BookService service)
+    UpdateBookPresenter (BookContract.View bookView, BookService service)
     {
         this.bookView = bookView;
         this.service = service;
     }
 
-    public void updateBook (String title, String author, String numPages, String description)
+    void updateBook (String title)
     {
-        book.setTitle( title );
-        book.setAuthor( author );
-        book.setNumberOfPages( Integer.parseInt( numPages ) );
-        book.setDescription( description );
-
-        service.updateBook( book.getId(), book ).enqueue( new Callback<Book>()
+        service.updateBookValue( book.getId(), Collections.singletonMap( TITLE, title ) )
+               .enqueue( new Callback<Book>()
         {
             @Override
             public void onResponse (Call<Book> call, Response<Book> response)

@@ -41,10 +41,7 @@ public class UpdateBookActivity extends BaseBookActivity
     @OnClick( R.id.save_book_fab)
     public void fabClicked()
     {
-        presenter.updateBook( titleText.getText().toString(),
-                              authorText.getText().toString(),
-                              numPagesText.getText().toString(),
-                              descriptionText.getText().toString() );
+        presenter.updateBook( titleText.getText().toString());
     }
 
 }

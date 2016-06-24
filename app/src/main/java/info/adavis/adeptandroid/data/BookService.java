@@ -1,12 +1,14 @@
 package info.adavis.adeptandroid.data;
 
 import java.util.List;
+import java.util.Map;
 
 import info.adavis.adeptandroid.models.Book;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -34,4 +36,8 @@ public interface BookService
 
     @DELETE( "books/{id}")
     Call<Void> deleteBook (@Path( "id" ) Long id);
+
+    @PATCH( "books/{id}" )
+    Call<Book> updateBookValue (@Path( "id" ) Long id, @Body Map<String, String> bookValue);
+
 }

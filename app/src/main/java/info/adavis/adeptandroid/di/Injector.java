@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-import static okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
 /**
@@ -29,7 +29,7 @@ public class Injector
 {
     private static final String CACHE_CONTROL = "Cache-Control";
 
-    public static Retrofit provideRetrofit (String baseUrl)
+    private static Retrofit provideRetrofit (String baseUrl)
     {
         return new Retrofit.Builder()
                 .baseUrl( baseUrl )
@@ -74,11 +74,11 @@ public class Injector
                         Timber.d( message );
                     }
                 } );
-        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? HEADERS : NONE );
+        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? BODY : NONE );
         return httpLoggingInterceptor;
     }
 
-    public static Interceptor provideCacheInterceptor ()
+    private static Interceptor provideCacheInterceptor ()
     {
         return new Interceptor()
         {
@@ -99,7 +99,7 @@ public class Injector
         };
     }
 
-    public static Interceptor provideOfflineCacheInterceptor ()
+    private static Interceptor provideOfflineCacheInterceptor ()
     {
         return new Interceptor()
         {
