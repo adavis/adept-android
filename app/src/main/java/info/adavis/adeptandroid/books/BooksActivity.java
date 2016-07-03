@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -29,7 +30,7 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         ButterKnife.bind(this);
 
         booksPresenter = new BooksPresenter(this);
-        booksAdapter = new BooksAdapter(this, new ArrayList<Book>(0));
+        booksAdapter = new BooksAdapter(this, Collections.<Book>emptyList());
 
         booksPresenter.initDataSet(getResources().openRawResource(R.raw.sample_data));
 
@@ -48,5 +49,7 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(booksAdapter);
     }
+
+
 
 }
