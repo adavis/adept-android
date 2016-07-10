@@ -1,8 +1,8 @@
-package info.adavis.adeptandroid.books.updatebook;
+package info.adavis.adeptandroid.features.addbook;
 
 import java.io.IOException;
 
-import info.adavis.adeptandroid.books.shared.BookContract;
+import info.adavis.adeptandroid.features.shared.BookContract;
 import info.adavis.adeptandroid.data.BookService;
 import info.adavis.adeptandroid.models.Book;
 import retrofit2.Call;
@@ -10,27 +10,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class UpdateBookPresenter
+public class AddBookPresenter
 {
     private final BookContract.View bookView;
     private final BookService service;
 
-    private Book book;
-
-    public UpdateBookPresenter (BookContract.View bookView, BookService service)
+    public AddBookPresenter (BookContract.View bookView, BookService service)
     {
         this.bookView = bookView;
         this.service = service;
     }
 
-    public void updateBook (String title, String author, String numPages, String description)
+    public void saveBook (String title, String author, String numPages, String description)
     {
-        book.setTitle( title );
-        book.setAuthor( author );
-        book.setNumberOfPages( Integer.parseInt( numPages ) );
-        book.setDescription( description );
+        Book book = new Book( title, author, Integer.parseInt( numPages ), description );
 
-        service.updateBook( book.getId(), book ).enqueue( new Callback<Book>()
+        service.saveBook( book ).enqueue( new Callback<Book>()
         {
             @Override
             public void onResponse (Call<Book> call, Response<Book> response)
@@ -38,7 +33,7 @@ public class UpdateBookPresenter
                 if ( response.isSuccessful() )
                 {
                     bookView.showBook( response.body() );
-                    Timber.i( "Book data was successfully updated in the API." );
+                    Timber.i( "Book data was successfully saved to the API." );
                 }
                 else
                 {
@@ -58,18 +53,8 @@ public class UpdateBookPresenter
             public void onFailure (Call<Book> call, Throwable t)
             {
                 bookView.showErrorMessage();
-                Timber.e( t, "Unable to update the book in the API." );
+                Timber.e( t, "Unable to save the book data to the API." );
             }
         } );
-    }
-
-    public Book getBook ()
-    {
-        return book;
-    }
-
-    public void setBook (Book book)
-    {
-        this.book = book;
     }
 }

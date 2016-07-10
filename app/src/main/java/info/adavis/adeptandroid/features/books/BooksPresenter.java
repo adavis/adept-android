@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.books.books;
+package info.adavis.adeptandroid.features.books;
 
 import java.util.List;
 

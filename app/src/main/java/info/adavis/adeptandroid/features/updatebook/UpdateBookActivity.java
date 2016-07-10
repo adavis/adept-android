@@ -1,12 +1,10 @@
-package info.adavis.adeptandroid.books.updatebook;
+package info.adavis.adeptandroid.features.updatebook;
 
 import android.os.Bundle;
 
-import java.util.Locale;
-
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.shared.BaseBookActivity;
+import info.adavis.adeptandroid.features.shared.BaseBookActivity;
 import info.adavis.adeptandroid.di.Injector;
 import info.adavis.adeptandroid.models.Book;
 

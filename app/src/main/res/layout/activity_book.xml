@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".books.book.BookActivity">
+    tools:context=".features.book.BookActivity">
 
     <include layout="@layout/toolbar"/>
 
@@ -21,24 +21,20 @@
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/tiny_padding"
             android:text="Large Text"
-            android:textSize="30sp"
+            android:textSize="@dimen/title_text_size"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
-            android:paddingLeft="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"/>
+            style="@style/FormField"/>
 
         <TextView
             android:id="@+id/authorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginBottom="8dp"
             android:text="Medium Text"
-            android:paddingLeft="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"/>
+            style="@style/FormField"/>
 
         <TextView
             android:id="@+id/numPagesText"
@@ -46,10 +42,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="italic"
-            android:layout_marginBottom="8dp"
             android:text="Medium Text"
-            android:paddingLeft="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"/>
+            style="@style/FormField"/>
 
         <TextView
             android:id="@+id/descriptionText"
@@ -57,8 +51,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/lorem_ipsum"
-            android:paddingLeft="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"/>
+            style="@style/FormField"/>
 
     </LinearLayout>
 

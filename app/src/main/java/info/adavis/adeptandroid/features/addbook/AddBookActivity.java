@@ -1,10 +1,10 @@
-package info.adavis.adeptandroid.books.addbook;
+package info.adavis.adeptandroid.features.addbook;
 
 import android.os.Bundle;
 
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.shared.BaseBookActivity;
+import info.adavis.adeptandroid.features.shared.BaseBookActivity;
 import info.adavis.adeptandroid.di.Injector;
 
 /**

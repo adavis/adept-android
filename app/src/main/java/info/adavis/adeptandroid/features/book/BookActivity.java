@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.books.book;
+package info.adavis.adeptandroid.features.book;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.books.BooksActivity;
-import info.adavis.adeptandroid.books.shared.BookContract;
-import info.adavis.adeptandroid.books.updatebook.UpdateBookActivity;
+import info.adavis.adeptandroid.features.shared.BookContract;
+import info.adavis.adeptandroid.features.updatebook.UpdateBookActivity;
 import info.adavis.adeptandroid.di.Injector;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;

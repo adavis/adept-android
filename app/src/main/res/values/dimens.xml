@@ -10,4 +10,6 @@
     <dimen name="thumb_height">108dp</dimen>
     <dimen name="small_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="tiny_padding">8dp</dimen>
+    <dimen name="title_text_size">30sp</dimen>
 </resources>
