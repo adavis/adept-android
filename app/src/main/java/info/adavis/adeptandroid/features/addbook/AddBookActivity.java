@@ -1,11 +1,11 @@
-package info.adavis.adeptandroid.books.addbook;
+package info.adavis.adeptandroid.features.addbook;
 
 import android.os.Bundle;
 
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.shared.BaseBookActivity;
 import info.adavis.adeptandroid.di.Injector;
+import info.adavis.adeptandroid.features.shared.BaseBookActivity;
 
 /**
  * @author Annyce Davis
@@ -19,7 +19,24 @@ public class AddBookActivity extends BaseBookActivity
     {
         super.onCreate( savedInstanceState );
 
-        presenter = new AddBookPresenter( this, Injector.provideBookService() );
+        presenter = new AddBookPresenter( Injector.provideBookService(),
+                                          Injector.provideEventBus() );
+    }
+
+    @Override
+    protected void onResume ()
+    {
+        super.onResume();
+
+        presenter.attachView( this );
+    }
+
+    @Override
+    protected void onPause ()
+    {
+        presenter.detachView();
+
+        super.onPause();
     }
 
     @OnClick( R.id.save_book_fab)

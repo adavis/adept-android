@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.books.book;
+package info.adavis.adeptandroid.features.book;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.books.BooksActivity;
-import info.adavis.adeptandroid.books.shared.BookContract;
-import info.adavis.adeptandroid.books.updatebook.UpdateBookActivity;
 import info.adavis.adeptandroid.di.Injector;
+import info.adavis.adeptandroid.features.shared.BookContract;
+import info.adavis.adeptandroid.features.updatebook.UpdateBookActivity;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
 
@@ -37,6 +36,7 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
     TextView descriptionText;
 
     private Book book;
+    private BookPresenter bookPresenter;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -46,10 +46,27 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
 
         ButterKnife.bind( this );
 
-        BookPresenter bookPresenter = new BookPresenter( this, Injector.provideBookService() );
-        bookPresenter.retrieveBook(getIntent().getLongExtra(EXTRA_BOOK_ID, 1));
+        bookPresenter = new BookPresenter( Injector.provideBookService(),
+                                           Injector.provideEventBus() );
+        bookPresenter.retrieveBook( getIntent().getLongExtra( EXTRA_BOOK_ID, 1 ) );
 
         configureLayout();
+    }
+
+    @Override
+    protected void onResume ()
+    {
+        super.onResume();
+
+        bookPresenter.attachView( this );
+    }
+
+    @Override
+    protected void onPause ()
+    {
+        bookPresenter.detachView();
+
+        super.onPause();
     }
 
     @Override

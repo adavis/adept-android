@@ -1,4 +1,4 @@
-package info.adavis.adeptandroid.books.books;
+package info.adavis.adeptandroid.features.books;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.addbook.AddBookActivity;
-import info.adavis.adeptandroid.books.book.BookActivity;
 import info.adavis.adeptandroid.di.Injector;
+import info.adavis.adeptandroid.features.addbook.AddBookActivity;
+import info.adavis.adeptandroid.features.book.BookActivity;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
 
@@ -38,7 +38,8 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
 
         ButterKnife.bind( this );
 
-        booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
+        booksPresenter = new BooksPresenter( Injector.provideBookService(),
+                                             Injector.provideEventBus() );
         booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ), itemListener );
 
         configureLayout();
@@ -48,7 +49,17 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
     protected void onResume ()
     {
         super.onResume();
+
+        booksPresenter.attachView( this );
         booksPresenter.initDataSet();
+    }
+
+    @Override
+    protected void onPause ()
+    {
+        booksPresenter.detachView();
+
+        super.onPause();
     }
 
     @OnClick(R.id.add_book_fab)

@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package info.adavis.adeptandroid.books.books;
+package info.adavis.adeptandroid.features.books;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +33,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.models.Book;
-import timber.log.Timber;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 

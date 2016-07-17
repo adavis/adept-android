@@ -1,5 +1,7 @@
 package info.adavis.adeptandroid.di;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -7,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import info.adavis.adeptandroid.AdeptAndroid;
 import info.adavis.adeptandroid.BuildConfig;
 import info.adavis.adeptandroid.Constants;
+import info.adavis.adeptandroid.data.AdeptAndroidApi;
 import info.adavis.adeptandroid.data.BookService;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -27,8 +30,6 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
  */
 public class Injector
 {
-    private static final String CACHE_CONTROL = "Cache-Control";
-
     private static Retrofit provideRetrofit (String baseUrl)
     {
         return new Retrofit.Builder()
@@ -43,7 +44,6 @@ public class Injector
         return new OkHttpClient.Builder()
                 .addInterceptor( provideHttpLoggingInterceptor() )
                 .addInterceptor( provideOfflineCacheInterceptor() )
-                .addNetworkInterceptor( provideCacheInterceptor() )
                 .cache( provideCache() )
                 .build();
     }
@@ -78,27 +78,6 @@ public class Injector
         return httpLoggingInterceptor;
     }
 
-    private static Interceptor provideCacheInterceptor ()
-    {
-        return new Interceptor()
-        {
-            @Override
-            public Response intercept (Chain chain) throws IOException
-            {
-                Response response = chain.proceed( chain.request() );
-
-                // re-write response header to force use of cache
-                CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge( 2, TimeUnit.MINUTES )
-                        .build();
-
-                return response.newBuilder()
-                        .header( CACHE_CONTROL, cacheControl.toString() )
-                        .build();
-            }
-        };
-    }
-
     private static Interceptor provideOfflineCacheInterceptor ()
     {
         return new Interceptor()
@@ -126,7 +105,17 @@ public class Injector
 
     public static BookService provideBookService ()
     {
-        return provideRetrofit( Constants.BASE_URL ).create( BookService.class );
+        return new BookService( provideApi(), provideEventBus() );
+    }
+
+    private static AdeptAndroidApi provideApi ()
+    {
+        return provideRetrofit( Constants.BASE_URL ).create( AdeptAndroidApi.class );
+    }
+
+    public static EventBus provideEventBus ()
+    {
+        return EventBus.getDefault();
     }
 
 }

@@ -1,13 +1,11 @@
-package info.adavis.adeptandroid.books.updatebook;
+package info.adavis.adeptandroid.features.updatebook;
 
 import android.os.Bundle;
 
-import java.util.Locale;
-
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
-import info.adavis.adeptandroid.books.shared.BaseBookActivity;
 import info.adavis.adeptandroid.di.Injector;
+import info.adavis.adeptandroid.features.shared.BaseBookActivity;
 import info.adavis.adeptandroid.models.Book;
 
 /**
@@ -24,10 +22,27 @@ public class UpdateBookActivity extends BaseBookActivity
     {
         super.onCreate( savedInstanceState );
 
-        presenter = new UpdateBookPresenter( this, Injector.provideBookService() );
+        presenter = new UpdateBookPresenter( Injector.provideBookService(),
+                                             Injector.provideEventBus() );
         presenter.setBook( (Book) getIntent().getParcelableExtra( EXTRA_BOOK ) );
 
         configureLayout( presenter.getBook() );
+    }
+
+    @Override
+    protected void onResume ()
+    {
+        super.onResume();
+
+        presenter.attachView( this );
+    }
+
+    @Override
+    protected void onPause ()
+    {
+        presenter.detachView();
+
+        super.onPause();
     }
 
     private void configureLayout (Book book)
