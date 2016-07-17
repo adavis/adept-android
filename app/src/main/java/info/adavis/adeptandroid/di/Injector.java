@@ -30,6 +30,9 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
  */
 public class Injector
 {
+    private static BookService bookService;
+    private static EventBus eventBus;
+
     private static Retrofit provideRetrofit (String baseUrl)
     {
         return new Retrofit.Builder()
@@ -105,7 +108,11 @@ public class Injector
 
     public static BookService provideBookService ()
     {
-        return new BookService( provideApi(), provideEventBus() );
+        if ( bookService == null )
+        {
+            bookService = new BookService( provideApi(), provideEventBus() );
+        }
+        return bookService;
     }
 
     private static AdeptAndroidApi provideApi ()
@@ -115,7 +122,14 @@ public class Injector
 
     public static EventBus provideEventBus ()
     {
-        return EventBus.getDefault();
+        if ( eventBus == null )
+        {
+            eventBus = EventBus.builder()
+                               .logNoSubscriberMessages( BuildConfig.DEBUG )
+                               .sendNoSubscriberEvent( BuildConfig.DEBUG )
+                               .build();
+        }
+        return eventBus;
     }
 
 }
