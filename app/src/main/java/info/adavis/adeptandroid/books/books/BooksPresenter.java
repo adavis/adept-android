@@ -9,18 +9,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class BooksPresenter
+class BooksPresenter
 {
     private final BooksContract.View booksView;
     private final BookService service;
 
-    public BooksPresenter (BooksContract.View booksView, BookService service)
+    BooksPresenter (BooksContract.View booksView, BookService service)
     {
         this.booksView = booksView;
         this.service = service;
     }
 
-    public void initDataSet ()
+    void initDataSet ()
     {
         service.getBooks().enqueue( new Callback<List<Book>>()
         {
@@ -43,7 +43,7 @@ public class BooksPresenter
         } );
     }
 
-    public void removeBook (long id)
+    void removeBook (long id)
     {
         service.deleteBook( id ).enqueue( new Callback<Void>()
         {
