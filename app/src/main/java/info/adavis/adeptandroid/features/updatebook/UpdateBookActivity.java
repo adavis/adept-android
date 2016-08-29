@@ -2,6 +2,8 @@ package info.adavis.adeptandroid.features.updatebook;
 
 import android.os.Bundle;
 
+import org.parceler.Parcels;
+
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.di.Injector;
@@ -24,7 +26,7 @@ public class UpdateBookActivity extends BaseBookActivity
 
         presenter = new UpdateBookPresenter( Injector.provideBookService(),
                                              Injector.provideEventBus() );
-        presenter.setBook( (Book) getIntent().getParcelableExtra( EXTRA_BOOK ) );
+        presenter.setBook( (Book) Parcels.unwrap( getIntent().getParcelableExtra( EXTRA_BOOK ) ) );
 
         configureLayout( presenter.getBook() );
     }

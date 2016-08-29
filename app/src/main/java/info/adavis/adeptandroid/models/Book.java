@@ -1,10 +1,13 @@
 package info.adavis.adeptandroid.models;
 
+import org.parceler.Parcel;
+import org.parceler.Parcel.Serialization;
+import org.parceler.ParcelConstructor;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import timber.log.Timber;
 
-public class Book implements Parcelable
+@Parcel( Serialization.BEAN )
+public class Book
 {
     private long id;
     private String title;
@@ -17,14 +20,18 @@ public class Book implements Parcelable
 
     public Book ()
     {
+        Timber.i( "using the default constructor" );
     }
 
+    @ParcelConstructor
     public Book (String title, String author, int numberOfPages, String description)
     {
         this.title = title;
         this.author = author;
         this.numberOfPages = numberOfPages;
         this.description = description;
+
+        Timber.i( "using the 4 parameter constructor" );
     }
 
     public long getId ()
@@ -114,49 +121,4 @@ public class Book implements Parcelable
                 '}';
     }
 
-    @Override
-    public int describeContents ()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel (Parcel dest, int flags)
-    {
-        dest.writeLong( this.id );
-        dest.writeString( this.title );
-        dest.writeString( this.author );
-        dest.writeString( this.description );
-        dest.writeString( this.bookUrl );
-        dest.writeString( this.imageUrl );
-        dest.writeString( this.displayDate );
-        dest.writeInt( this.numberOfPages );
-    }
-
-    protected Book (Parcel in)
-    {
-        this.id = in.readLong();
-        this.title = in.readString();
-        this.author = in.readString();
-        this.description = in.readString();
-        this.bookUrl = in.readString();
-        this.imageUrl = in.readString();
-        this.displayDate = in.readString();
-        this.numberOfPages = in.readInt();
-    }
-
-    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>()
-    {
-        @Override
-        public Book createFromParcel (Parcel source)
-        {
-            return new Book( source );
-        }
-
-        @Override
-        public Book[] newArray (int size)
-        {
-            return new Book[size];
-        }
-    };
 }

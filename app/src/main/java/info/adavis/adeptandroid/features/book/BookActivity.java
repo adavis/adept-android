@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.parceler.Parcels;
+
 import java.util.Locale;
 
 import butterknife.Bind;
@@ -97,7 +99,7 @@ public class BookActivity extends AppCompatActivity implements BookContract.View
         Timber.d( "edit book with id: %d", this.book.getId() );
 
         Intent intent = new Intent( BookActivity.this, UpdateBookActivity.class );
-        intent.putExtra( UpdateBookActivity.EXTRA_BOOK, this.book );
+        intent.putExtra( UpdateBookActivity.EXTRA_BOOK, Parcels.wrap( this.book ) );
         startActivity(intent);
 
         finish();
