@@ -8,6 +8,8 @@ import android.net.NetworkInfo;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
+import java.util.concurrent.TimeUnit;
+
 import info.adavis.adeptandroid.jobs.AdeptAndroidJobCreator;
 import info.adavis.adeptandroid.jobs.DemoJob;
 import timber.log.Timber;
@@ -31,7 +33,7 @@ public class AdeptAndroid extends Application
         JobManager.create(this).addJobCreator(new AdeptAndroidJobCreator());
 
         new JobRequest.Builder(DemoJob.JOB_TAG)
-                .setExecutionWindow(2_000L, 5_000L)
+                .setExecutionWindow(TimeUnit.SECONDS.toMillis(2), TimeUnit.SECONDS.toMillis(5))
                 .build()
                 .schedule();
 
