@@ -5,10 +5,15 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
+
+import info.adavis.adeptandroid.jobs.AdeptAndroidJobCreator;
+import info.adavis.adeptandroid.jobs.DemoJob;
 import timber.log.Timber;
 
-public class AdeptAndroid extends Application {
-
+public class AdeptAndroid extends Application
+{
     private static AdeptAndroid instance;
 
     @Override
@@ -22,6 +27,13 @@ public class AdeptAndroid extends Application {
         {
             Timber.plant(new Timber.DebugTree());
         }
+
+        JobManager.create(this).addJobCreator(new AdeptAndroidJobCreator());
+
+        new JobRequest.Builder(DemoJob.JOB_TAG)
+                .setExecutionWindow(2_000L, 5_000L)
+                .build()
+                .schedule();
 
         Timber.i("Creating our Application");
     }
@@ -38,7 +50,7 @@ public class AdeptAndroid extends Application {
 
     public boolean checkIfHasNetwork()
     {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService( Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
