@@ -10,6 +10,7 @@ import info.adavis.adeptandroid.Constants;
 import info.adavis.adeptandroid.data.BookService;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -19,15 +20,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS;
 import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
-/**
- * @author Annyce Davis
- */
 public class Injector
 {
     private static final String CACHE_CONTROL = "Cache-Control";
+    private static final String VERSION = "version";
+    private static final String USER_AGENT = "User-Agent";
+    private static final String ADEPT_ANDROID_APP = "Adept-Android-App";
 
     private static Retrofit provideRetrofit (String baseUrl)
     {
@@ -41,8 +42,8 @@ public class Injector
     private static OkHttpClient provideOkHttpClient ()
     {
         return new OkHttpClient.Builder()
+                .addInterceptor( provideUrlAndHeaderInterceptor() )
                 .addInterceptor( provideHttpLoggingInterceptor() )
-                .addInterceptor( provideOfflineCacheInterceptor() )
                 .addNetworkInterceptor( provideCacheInterceptor() )
                 .cache( provideCache() )
                 .build();
@@ -74,7 +75,7 @@ public class Injector
                         Timber.d( message );
                     }
                 } );
-        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? BODY : NONE );
+        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? HEADERS : NONE );
         return httpLoggingInterceptor;
     }
 
@@ -99,7 +100,7 @@ public class Injector
         };
     }
 
-    private static Interceptor provideOfflineCacheInterceptor ()
+    private static Interceptor provideUrlAndHeaderInterceptor ()
     {
         return new Interceptor()
         {
@@ -107,19 +108,15 @@ public class Injector
             public Response intercept (Chain chain) throws IOException
             {
                 Request request = chain.request();
+                HttpUrl url = request.url()
+                                     .newBuilder()
+                                     .addQueryParameter( VERSION, BuildConfig.VERSION_NAME )
+                                     .build();
 
-                if ( !AdeptAndroid.hasNetwork() )
-                {
-                    CacheControl cacheControl = new CacheControl.Builder()
-                            .maxStale( 7, TimeUnit.DAYS )
-                            .build();
+                Request.Builder builder = request.newBuilder().url( url );
+                builder.addHeader( USER_AGENT, ADEPT_ANDROID_APP );
 
-                    request = request.newBuilder()
-                            .cacheControl( cacheControl )
-                            .build();
-                }
-
-                return chain.proceed( request );
+                return chain.proceed( builder.build() );
             }
         };
     }
