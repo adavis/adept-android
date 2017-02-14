@@ -20,11 +20,16 @@ android {
     lintOptions {
         abortOnError false
     }
+    dexOptions {
+        dexInProcess false
+        jumboMode true
+    }
 }
 
 ext {
     supportLibraryVersion = '25.1.0'
     retrofitVersion = '2.1.0'
+    leakCanaryVersion = "1.5"
 }
 
 dependencies {
@@ -56,4 +61,9 @@ dependencies {
     // Testing
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.10.19"
+
+    // Leak Detection
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
