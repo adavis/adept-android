@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "info.adavis.adeptandroid"
@@ -23,7 +23,7 @@ android {
 }
 
 ext {
-    supportLibraryVersion = '25.1.0'
+    supportLibraryVersion = '25.2.0'
     retrofitVersion = '2.1.0'
 }
 
