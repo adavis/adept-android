@@ -35,13 +35,13 @@ import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
+class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 
     private WeakReference<Context> context;
     private List<Book> books;
     private BookItemListener itemListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener, View.OnLongClickListener
+    class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener, View.OnLongClickListener
     {
 
         @Bind(R.id.titleTextView) TextView titleTextView;
@@ -52,7 +52,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
         BookItemListener itemListener;
 
-        public ViewHolder(View v, BookItemListener itemListener) {
+        ViewHolder(View v, BookItemListener itemListener) {
             super(v);
             ButterKnife.bind(this, v);
 
@@ -78,7 +78,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         }
     }
 
-    public BooksAdapter (Context context, List<Book> books, BookItemListener itemListener) {
+    BooksAdapter(Context context, List<Book> books, BookItemListener itemListener) {
         this.context = new WeakReference<>(context);
         this.books = books;
         this.itemListener = itemListener;
@@ -87,7 +87,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.book_row_item, viewGroup, false);
+                .inflate(R.layout.book_row_item_slow, viewGroup, false);
 
         return new ViewHolder(v, this.itemListener);
     }
@@ -118,7 +118,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         return books.size();
     }
 
-    public void updateBooks(List<Book> books) {
+    void updateBooks(List<Book> books) {
         this.books = books;
         notifyDataSetChanged();
     }
@@ -127,7 +127,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         return books.get(adapterPosition);
     }
 
-    public interface BookItemListener
+    interface BookItemListener
     {
         void onBookClick(long id);
 

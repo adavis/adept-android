@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:orientation="horizontal"
+    android:layout_marginBottom="@dimen/item_margin"
+    android:background="@color/indigo_50"
+    android:padding="@dimen/item_padding">
+
+    <ImageView
+        android:layout_width="@dimen/thumb_width"
+        android:layout_height="@dimen/thumb_height"
+        android:id="@+id/imageView"
+        android:contentDescription="@string/thumbnail_image"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            tools:text="Sample Text"/>
+
+        <TextView
+            android:id="@+id/authorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            style="@style/TextAppearance.AppCompat.Body1"
+            tools:text="Sample Text"/>
+
+        <TextView
+            android:id="@+id/publishedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/text_margin"
+            android:gravity="bottom"
+            android:layout_weight="1"
+            style="@style/TextAppearance.AppCompat.Body1"
+            tools:text="August 20, 2015"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pagesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="@dimen/text_margin"
+        android:textStyle="italic"
+        style="@style/TextAppearance.AppCompat.Body1"
+        tools:text="234 pages"/>
+
+</LinearLayout>
