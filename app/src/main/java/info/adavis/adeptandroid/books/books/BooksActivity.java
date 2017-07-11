@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.adavis.adeptandroid.R;
@@ -25,27 +25,27 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
 {
     private BooksAdapter booksAdapter;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private BooksPresenter booksPresenter;
 
     @Override
-    protected void onCreate (Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        ButterKnife.bind( this );
+        ButterKnife.bind(this);
 
-        booksPresenter = new BooksPresenter( this, Injector.provideBookService() );
-        booksAdapter = new BooksAdapter( this, new ArrayList<Book>( 0 ), itemListener );
+        booksPresenter = new BooksPresenter(this, Injector.provideBookService());
+        booksAdapter = new BooksAdapter(this, new ArrayList<Book>(0), itemListener);
 
         configureLayout();
     }
 
     @Override
-    protected void onResume ()
+    protected void onResume()
     {
         super.onResume();
         booksPresenter.initDataSet();
@@ -54,56 +54,56 @@ public class BooksActivity extends AppCompatActivity implements BooksContract.Vi
     @OnClick(R.id.add_book_fab)
     public void fabClicked()
     {
-        startActivity( new Intent( this, AddBookActivity.class ) );
+        startActivity(new Intent(this, AddBookActivity.class));
     }
 
     @Override
-    public void showBooks (List<Book> books)
+    public void showBooks(List<Book> books)
     {
-        booksAdapter.updateBooks( books );
+        booksAdapter.updateBooks(books);
     }
 
     @Override
-    public void showErrorMessage ()
+    public void showErrorMessage()
     {
-        Toast.makeText( this, R.string.books_loading_unsuccessful, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.books_loading_unsuccessful, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void refresh ()
+    public void refresh()
     {
         booksPresenter.initDataSet();
     }
 
-    private void configureLayout ()
+    private void configureLayout()
     {
-        setSupportActionBar( (Toolbar) ButterKnife.findById( this, R.id.toolbar ) );
+        setSupportActionBar((Toolbar) ButterKnife.findById(this, R.id.toolbar));
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
-        recyclerView.setLayoutManager( layoutManager );
-        recyclerView.setAdapter( booksAdapter );
-        recyclerView.setHasFixedSize( true );
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(booksAdapter);
+        recyclerView.setHasFixedSize(true);
     }
 
     private BooksAdapter.BookItemListener itemListener = new BooksAdapter.BookItemListener()
     {
 
         @Override
-        public void onBookClick (long id)
+        public void onBookClick(long id)
         {
-            Timber.d( "Book clicked with id: %d", id );
+            Timber.d("Book clicked with id: %d", id);
 
-            Intent intent = new Intent( BooksActivity.this, BookActivity.class );
-            intent.putExtra( BookActivity.EXTRA_BOOK_ID, id );
+            Intent intent = new Intent(BooksActivity.this, BookActivity.class);
+            intent.putExtra(BookActivity.EXTRA_BOOK_ID, id);
             startActivity(intent);
         }
 
         @Override
-        public void onBookLongClick (long id)
+        public void onBookLongClick(long id)
         {
-            Timber.d( "Book clicked with id: %d", id );
+            Timber.d("Book clicked with id: %d", id);
 
-            booksPresenter.removeBook( id );
+            booksPresenter.removeBook(id);
         }
     };
 

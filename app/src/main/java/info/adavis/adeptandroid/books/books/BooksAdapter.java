@@ -29,63 +29,71 @@ import com.squareup.picasso.Picasso;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.models.Book;
-import timber.log.Timber;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
+{
 
     private WeakReference<Context> context;
     private List<Book> books;
     private BookItemListener itemListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener, View.OnLongClickListener
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
     {
 
-        @Bind(R.id.titleTextView) TextView titleTextView;
-        @Bind(R.id.authorTextView) TextView authorTextView;
-        @Bind(R.id.publishedTextView) TextView publishedTextView;
-        @Bind(R.id.pagesTextView) TextView pagesTextView;
-        @Bind(R.id.imageView) ImageView imageView;
+        @BindView(R.id.titleTextView)
+        TextView titleTextView;
+        @BindView(R.id.authorTextView)
+        TextView authorTextView;
+        @BindView(R.id.publishedTextView)
+        TextView publishedTextView;
+        @BindView(R.id.pagesTextView)
+        TextView pagesTextView;
+        @BindView(R.id.imageView)
+        ImageView imageView;
 
         BookItemListener itemListener;
 
-        public ViewHolder(View v, BookItemListener itemListener) {
+        public ViewHolder(View v, BookItemListener itemListener)
+        {
             super(v);
             ButterKnife.bind(this, v);
 
             this.itemListener = itemListener;
-            v.setOnClickListener( this );
-            v.setOnLongClickListener( this );
+            v.setOnClickListener(this);
+            v.setOnLongClickListener(this);
         }
 
         @Override
-        public void onClick (View v)
+        public void onClick(View v)
         {
-            Book book = getItem( getAdapterPosition() );
-            this.itemListener.onBookClick( book.getId() );
+            Book book = getItem(getAdapterPosition());
+            this.itemListener.onBookClick(book.getId());
         }
 
         @Override
-        public boolean onLongClick (View v)
+        public boolean onLongClick(View v)
         {
-            Book book = getItem( getAdapterPosition() );
-            this.itemListener.onBookLongClick( book.getId() );
+            Book book = getItem(getAdapterPosition());
+            this.itemListener.onBookLongClick(book.getId());
 
             return true;
         }
     }
 
-    public BooksAdapter (Context context, List<Book> books, BookItemListener itemListener) {
+    public BooksAdapter(Context context, List<Book> books, BookItemListener itemListener)
+    {
         this.context = new WeakReference<>(context);
         this.books = books;
         this.itemListener = itemListener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
+    {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.book_row_item, viewGroup, false);
 
@@ -93,14 +101,16 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position)
+    {
         Book book = books.get(position);
 
         viewHolder.titleTextView.setText(book.getTitle());
         viewHolder.authorTextView.setText(book.getAuthor());
 
         Context contextLocal = context.get();
-        if (contextLocal != null) {
+        if (contextLocal != null)
+        {
             viewHolder.publishedTextView.setText(book.getDisplayDate());
             viewHolder.pagesTextView.setText(
                     String.format(contextLocal.getString(R.string.pages_label), book.getNumberOfPages()));
@@ -114,16 +124,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return books.size();
     }
 
-    public void updateBooks(List<Book> books) {
+    public void updateBooks(List<Book> books)
+    {
         this.books = books;
         notifyDataSetChanged();
     }
 
-    private Book getItem(int adapterPosition) {
+    private Book getItem(int adapterPosition)
+    {
         return books.get(adapterPosition);
     }
 

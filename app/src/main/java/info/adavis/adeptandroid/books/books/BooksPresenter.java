@@ -14,52 +14,52 @@ class BooksPresenter
     private final BooksContract.View booksView;
     private final BookService service;
 
-    BooksPresenter (BooksContract.View booksView, BookService service)
+    BooksPresenter(BooksContract.View booksView, BookService service)
     {
         this.booksView = booksView;
         this.service = service;
     }
 
-    void initDataSet ()
+    void initDataSet()
     {
-        service.getBooks().enqueue( new Callback<List<Book>>()
+        service.getBooks().enqueue(new Callback<List<Book>>()
         {
             @Override
-            public void onResponse (Call<List<Book>> call, Response<List<Book>> response)
+            public void onResponse(Call<List<Book>> call, Response<List<Book>> response)
             {
-                if ( response.isSuccessful() )
+                if (response.isSuccessful())
                 {
-                    booksView.showBooks( response.body() );
-                    Timber.i( "Books data was loaded from API." );
+                    booksView.showBooks(response.body());
+                    Timber.i("Books data was loaded from API.");
                 }
             }
 
             @Override
-            public void onFailure (Call<List<Book>> call, Throwable t)
+            public void onFailure(Call<List<Book>> call, Throwable t)
             {
                 booksView.showErrorMessage();
-                Timber.e( t, "Unable to load the books data from API." );
+                Timber.e(t, "Unable to load the books data from API.");
             }
-        } );
+        });
     }
 
-    void removeBook (long id)
+    void removeBook(long id)
     {
-        service.deleteBook( id ).enqueue( new Callback<Void>()
+        service.deleteBook(id).enqueue(new Callback<Void>()
         {
             @Override
-            public void onResponse (Call<Void> call, Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
-                Timber.i( "Removed the book from API." );
+                Timber.i("Removed the book from API.");
                 booksView.refresh();
             }
 
             @Override
-            public void onFailure (Call<Void> call, Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 booksView.showErrorMessage();
-                Timber.e( t, "Unable to remove the book from the API." );
+                Timber.e(t, "Unable to remove the book from the API.");
             }
-        } );
+        });
     }
 }

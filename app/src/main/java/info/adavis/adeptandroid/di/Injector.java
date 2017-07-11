@@ -30,100 +30,99 @@ public class Injector
     private static final String USER_AGENT = "User-Agent";
     private static final String ADEPT_ANDROID_APP = "Adept-Android-App";
 
-    private static Retrofit provideRetrofit (String baseUrl)
+    private static Retrofit provideRetrofit(String baseUrl)
     {
         return new Retrofit.Builder()
-                .baseUrl( baseUrl )
-                .client( provideOkHttpClient() )
-                .addConverterFactory( GsonConverterFactory.create() )
+                .baseUrl(baseUrl)
+                .client(provideOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
-    private static OkHttpClient provideOkHttpClient ()
+    private static OkHttpClient provideOkHttpClient()
     {
         return new OkHttpClient.Builder()
-                .addInterceptor( provideUrlAndHeaderInterceptor() )
-                .addInterceptor( provideHttpLoggingInterceptor() )
-                .addNetworkInterceptor( provideCacheInterceptor() )
-                .cache( provideCache() )
+                .addInterceptor(provideUrlAndHeaderInterceptor())
+                .addInterceptor(provideHttpLoggingInterceptor())
+                .addNetworkInterceptor(provideCacheInterceptor())
+                .cache(provideCache())
                 .build();
     }
 
-    private static Cache provideCache ()
+    private static Cache provideCache()
     {
         Cache cache = null;
         try
         {
-            cache = new Cache( new File( AdeptAndroid.getInstance().getCacheDir(), "http-cache" ),
-                               10 * 1024 * 1024 ); // 10 MB
-        }
-        catch (Exception e)
+            cache = new Cache(new File(AdeptAndroid.getInstance().getCacheDir(), "http-cache"),
+                              10 * 1024 * 1024); // 10 MB
+        } catch (Exception e)
         {
-            Timber.e( e, "Could not create Cache!" );
+            Timber.e(e, "Could not create Cache!");
         }
         return cache;
     }
 
-    private static HttpLoggingInterceptor provideHttpLoggingInterceptor ()
+    private static HttpLoggingInterceptor provideHttpLoggingInterceptor()
     {
         HttpLoggingInterceptor httpLoggingInterceptor =
-                new HttpLoggingInterceptor( new HttpLoggingInterceptor.Logger()
+                new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger()
                 {
                     @Override
-                    public void log (String message)
+                    public void log(String message)
                     {
-                        Timber.d( message );
+                        Timber.d(message);
                     }
-                } );
-        httpLoggingInterceptor.setLevel( BuildConfig.DEBUG ? HEADERS : NONE );
+                });
+        httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? HEADERS : NONE);
         return httpLoggingInterceptor;
     }
 
-    private static Interceptor provideCacheInterceptor ()
+    private static Interceptor provideCacheInterceptor()
     {
         return new Interceptor()
         {
             @Override
-            public Response intercept (Chain chain) throws IOException
+            public Response intercept(Chain chain) throws IOException
             {
-                Response response = chain.proceed( chain.request() );
+                Response response = chain.proceed(chain.request());
 
                 // re-write response header to force use of cache
                 CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge( 2, TimeUnit.MINUTES )
+                        .maxAge(2, TimeUnit.MINUTES)
                         .build();
 
                 return response.newBuilder()
-                        .header( CACHE_CONTROL, cacheControl.toString() )
+                        .header(CACHE_CONTROL, cacheControl.toString())
                         .build();
             }
         };
     }
 
-    private static Interceptor provideUrlAndHeaderInterceptor ()
+    private static Interceptor provideUrlAndHeaderInterceptor()
     {
         return new Interceptor()
         {
             @Override
-            public Response intercept (Chain chain) throws IOException
+            public Response intercept(Chain chain) throws IOException
             {
                 Request request = chain.request();
                 HttpUrl url = request.url()
-                                     .newBuilder()
-                                     .addQueryParameter( VERSION, BuildConfig.VERSION_NAME )
-                                     .build();
+                        .newBuilder()
+                        .addQueryParameter(VERSION, BuildConfig.VERSION_NAME)
+                        .build();
 
-                Request.Builder builder = request.newBuilder().url( url );
-                builder.addHeader( USER_AGENT, ADEPT_ANDROID_APP );
+                Request.Builder builder = request.newBuilder().url(url);
+                builder.addHeader(USER_AGENT, ADEPT_ANDROID_APP);
 
-                return chain.proceed( builder.build() );
+                return chain.proceed(builder.build());
             }
         };
     }
 
-    public static BookService provideBookService ()
+    public static BookService provideBookService()
     {
-        return provideRetrofit( Constants.BASE_URL ).create( BookService.class );
+        return provideRetrofit(Constants.BASE_URL).create(BookService.class);
     }
 
 }

@@ -15,11 +15,11 @@ public class Book implements Parcelable
     private String displayDate;
     private int numberOfPages;
 
-    public Book ()
+    public Book()
     {
     }
 
-    public Book (String title, String author, int numberOfPages, String description)
+    public Book(String title, String author, int numberOfPages, String description)
     {
         this.title = title;
         this.author = author;
@@ -27,113 +27,114 @@ public class Book implements Parcelable
         this.description = description;
     }
 
-    public long getId ()
+    public long getId()
     {
         return id;
     }
 
-    public void setId (long id)
+    public void setId(long id)
     {
         this.id = id;
     }
 
-    public String getAuthor ()
+    public String getAuthor()
     {
         return author;
     }
 
-    public void setAuthor (String author)
+    public void setAuthor(String author)
     {
         this.author = author;
     }
 
-    public String getBookUrl ()
+    public String getBookUrl()
     {
         return bookUrl;
     }
 
-    public void setBookUrl (String bookUrl)
+    public void setBookUrl(String bookUrl)
     {
         this.bookUrl = bookUrl;
     }
 
-    public String getDescription ()
+    public String getDescription()
     {
         return description;
     }
 
-    public void setDescription (String description)
+    public void setDescription(String description)
     {
         this.description = description;
     }
 
-    public String getDisplayDate ()
+    public String getDisplayDate()
     {
         return displayDate;
     }
 
-    public void setDisplayDate (String displayDate)
+    public void setDisplayDate(String displayDate)
     {
         this.displayDate = displayDate;
     }
 
-    public String getImageUrl ()
+    public String getImageUrl()
     {
         return imageUrl;
     }
 
-    public void setImageUrl (String imageUrl)
+    public void setImageUrl(String imageUrl)
     {
         this.imageUrl = imageUrl;
     }
 
-    public int getNumberOfPages ()
+    public int getNumberOfPages()
     {
         return numberOfPages;
     }
 
-    public void setNumberOfPages (int numberOfPages)
+    public void setNumberOfPages(int numberOfPages)
     {
         this.numberOfPages = numberOfPages;
     }
 
-    public String getTitle ()
+    public String getTitle()
     {
         return title;
     }
 
-    public void setTitle (String title)
+    public void setTitle(String title)
     {
         this.title = title;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Book{" +
                 "title='" + title + '\'' +
                 '}';
     }
 
     @Override
-    public int describeContents ()
+    public int describeContents()
     {
         return 0;
     }
 
     @Override
-    public void writeToParcel (Parcel dest, int flags)
+    public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeLong( this.id );
-        dest.writeString( this.title );
-        dest.writeString( this.author );
-        dest.writeString( this.description );
-        dest.writeString( this.bookUrl );
-        dest.writeString( this.imageUrl );
-        dest.writeString( this.displayDate );
-        dest.writeInt( this.numberOfPages );
+        dest.writeLong(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.author);
+        dest.writeString(this.description);
+        dest.writeString(this.bookUrl);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.displayDate);
+        dest.writeInt(this.numberOfPages);
     }
 
-    protected Book (Parcel in)
+    protected Book(Parcel in)
     {
         this.id = in.readLong();
         this.title = in.readString();
@@ -148,13 +149,13 @@ public class Book implements Parcelable
     public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>()
     {
         @Override
-        public Book createFromParcel (Parcel source)
+        public Book createFromParcel(Parcel source)
         {
-            return new Book( source );
+            return new Book(source);
         }
 
         @Override
-        public Book[] newArray (int size)
+        public Book[] newArray(int size)
         {
             return new Book[size];
         }

@@ -15,34 +15,32 @@ public class AddBookPresenter
     private final BookContract.View bookView;
     private final BookService service;
 
-    public AddBookPresenter (BookContract.View bookView, BookService service)
+    public AddBookPresenter(BookContract.View bookView, BookService service)
     {
         this.bookView = bookView;
         this.service = service;
     }
 
-    public void saveBook (String title, String author, String numPages, String description)
+    public void saveBook(String title, String author, String numPages, String description)
     {
-        Book book = new Book( title, author, Integer.parseInt( numPages ), description );
+        Book book = new Book(title, author, Integer.parseInt(numPages), description);
 
-        service.saveBook( book ).enqueue( new Callback<Book>()
+        service.saveBook(book).enqueue(new Callback<Book>()
         {
             @Override
-            public void onResponse (Call<Book> call, Response<Book> response)
+            public void onResponse(Call<Book> call, Response<Book> response)
             {
-                if ( response.isSuccessful() )
+                if (response.isSuccessful())
                 {
-                    bookView.showBook( response.body() );
-                    Timber.i( "Book data was successfully saved to the API." );
-                }
-                else
+                    bookView.showBook(response.body());
+                    Timber.i("Book data was successfully saved to the API.");
+                } else
                 {
                     try
                     {
-                        Timber.i( "The response failed: %s", response.errorBody().string() );
+                        Timber.i("The response failed: %s", response.errorBody().string());
                         bookView.showErrorMessage();
-                    }
-                    catch ( IOException ignored )
+                    } catch (IOException ignored)
                     {
                         // no op
                     }
@@ -50,11 +48,11 @@ public class AddBookPresenter
             }
 
             @Override
-            public void onFailure (Call<Book> call, Throwable t)
+            public void onFailure(Call<Book> call, Throwable t)
             {
                 bookView.showErrorMessage();
-                Timber.e( t, "Unable to save the book data to the API." );
+                Timber.e(t, "Unable to save the book data to the API.");
             }
-        } );
+        });
     }
 }

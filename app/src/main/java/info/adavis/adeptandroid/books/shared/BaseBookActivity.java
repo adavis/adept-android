@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.books.book.BookActivity;
@@ -18,42 +18,42 @@ import info.adavis.adeptandroid.models.Book;
  */
 public class BaseBookActivity extends AppCompatActivity implements BookContract.View
 {
-    @Bind( R.id.titleText )
+    @BindView(R.id.titleText)
     protected EditText titleText;
 
-    @Bind( R.id.authorText )
+    @BindView(R.id.authorText)
     protected EditText authorText;
 
-    @Bind( R.id.numPagesText )
+    @BindView(R.id.numPagesText)
     protected EditText numPagesText;
 
-    @Bind( R.id.descriptionText )
+    @BindView(R.id.descriptionText)
     protected EditText descriptionText;
 
     @Override
-    protected void onCreate (Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_add_book );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_book);
 
-        ButterKnife.bind( this );
+        ButterKnife.bind(this);
 
-        setSupportActionBar( (Toolbar) ButterKnife.findById( this, R.id.toolbar ) );
+        setSupportActionBar((Toolbar) ButterKnife.findById(this, R.id.toolbar));
     }
 
     @Override
-    public void showErrorMessage ()
+    public void showErrorMessage()
     {
-        Toast.makeText( this, R.string.book_saving_unsuccessful, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.book_saving_unsuccessful, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showBook (Book book)
+    public void showBook(Book book)
     {
-        Intent intent = new Intent( this, BookActivity.class );
-        intent.putExtra( BookActivity.EXTRA_BOOK_ID, book.getId() );
+        Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra(BookActivity.EXTRA_BOOK_ID, book.getId());
 
-        startActivity( intent );
+        startActivity(intent);
         finish();
     }
 

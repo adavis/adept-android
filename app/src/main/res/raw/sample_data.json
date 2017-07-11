@@ -1,45 +1,41 @@
 [
   {
-    "title" : "Clean Code",
-    "author" : "Robert Martin",
-    "bookUrl" : "http://amzn.to/1DJybxH",
-    "imageUrl" : "http://adavis.github.io/adept-android/images/clean_code.jpg",
-    "displayDate" : "August 11, 2008",
-    "numberOfPages" : 464
+    "title": "Clean Code",
+    "author": "Robert Martin",
+    "bookUrl": "http://amzn.to/1DJybxH",
+    "imageUrl": "http://adavis.github.io/adept-android/images/clean_code.jpg",
+    "displayDate": "August 11, 2008",
+    "numberOfPages": 464
   },
-
   {
-    "title" : "Effective Java",
-    "author" : "Joshua Bloch",
-    "bookUrl" : "http://amzn.to/1Ku8Xel",
-    "imageUrl" : "http://adavis.github.io/adept-android/images/effective_java.jpg",
-    "displayDate" : "May 28, 2008",
-    "numberOfPages" : 346
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "bookUrl": "http://amzn.to/1Ku8Xel",
+    "imageUrl": "http://adavis.github.io/adept-android/images/effective_java.jpg",
+    "displayDate": "May 28, 2008",
+    "numberOfPages": 346
   },
-
   {
-    "title" : "Working Effectively with Legacy Code",
-    "author" : "Michael Feathers",
-    "bookUrl" : "http://amzn.to/1Jqe1PA",
-    "imageUrl" : "http://adavis.github.io/adept-android/images/legacy_code.jpg",
-    "displayDate" : "October 2, 2004",
-    "numberOfPages" : 456
+    "title": "Working Effectively with Legacy Code",
+    "author": "Michael Feathers",
+    "bookUrl": "http://amzn.to/1Jqe1PA",
+    "imageUrl": "http://adavis.github.io/adept-android/images/legacy_code.jpg",
+    "displayDate": "October 2, 2004",
+    "numberOfPages": 456
   },
-
   {
-    "title" : "Refactoring: Improving the Design of Existing Code",
-    "author" : "Martin Fowler",
-    "bookUrl" : "http://amzn.to/1Lx4cjR",
-    "imageUrl" : "http://adavis.github.io/adept-android/images/refactoring.jpg",
-    "displayDate" : "July 8, 1999",
-    "numberOfPages" : 464
+    "title": "Refactoring: Improving the Design of Existing Code",
+    "author": "Martin Fowler",
+    "bookUrl": "http://amzn.to/1Lx4cjR",
+    "imageUrl": "http://adavis.github.io/adept-android/images/refactoring.jpg",
+    "displayDate": "July 8, 1999",
+    "numberOfPages": 464
   },
-
   {
-    "title" : "Test Driven Development: By Example",
-    "author" : "Kent Beck",
-    "imageUrl" : "http://adavis.github.io/adept-android/images/tdd.jpg",
-    "displayDate" : "November 18, 2002",
-    "numberOfPages" : 240
+    "title": "Test Driven Development: By Example",
+    "author": "Kent Beck",
+    "imageUrl": "http://adavis.github.io/adept-android/images/tdd.jpg",
+    "displayDate": "November 18, 2002",
+    "numberOfPages": 240
   }
 ]

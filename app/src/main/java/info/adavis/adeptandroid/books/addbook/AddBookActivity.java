@@ -15,20 +15,20 @@ public class AddBookActivity extends BaseBookActivity
     private AddBookPresenter presenter;
 
     @Override
-    protected void onCreate (Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate( savedInstanceState );
+        super.onCreate(savedInstanceState);
 
-        presenter = new AddBookPresenter( this, Injector.provideBookService() );
+        presenter = new AddBookPresenter(this, Injector.provideBookService());
     }
 
-    @OnClick( R.id.save_book_fab)
+    @OnClick(R.id.save_book_fab)
     public void fabClicked()
     {
-        presenter.saveBook( titleText.getText().toString(),
-                            authorText.getText().toString(),
-                            numPagesText.getText().toString(),
-                            descriptionText.getText().toString() );
+        presenter.saveBook(titleText.getText().toString(),
+                           authorText.getText().toString(),
+                           numPagesText.getText().toString(),
+                           descriptionText.getText().toString());
     }
 
 }

@@ -9,7 +9,8 @@ import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
 
-public class AdeptAndroid extends Application {
+public class AdeptAndroid extends Application
+{
 
     private static AdeptAndroid instance;
 
@@ -37,19 +38,19 @@ public class AdeptAndroid extends Application {
         Timber.i("Creating our Application");
     }
 
-    public static AdeptAndroid getInstance ()
+    public static AdeptAndroid getInstance()
     {
         return instance;
     }
 
-    public static boolean hasNetwork ()
+    public static boolean hasNetwork()
     {
         return instance.checkIfHasNetwork();
     }
 
     public boolean checkIfHasNetwork()
     {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService( Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }

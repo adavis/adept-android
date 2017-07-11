@@ -21,78 +21,67 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Annyce Davis
- */
 public class BooksPresenterTest
 {
     private BooksPresenter booksPresenter;
     private List<Book> books;
 
-    @Mock
-    BooksContract.View booksView;
+    @Mock private BooksContract.View booksView;
+    @Mock private BookService bookService;
+    @Mock private Call<List<Book>> mockCall;
+    @Mock private ResponseBody responseBody;
 
-    @Mock
-    BookService bookService;
-
-    @Mock
-    Call<List<Book>> mockCall;
-
-    @Mock
-    ResponseBody responseBody;
-
-    @Captor
-    ArgumentCaptor<Callback<List<Book>>> argumentCapture;
+    @Captor private ArgumentCaptor<Callback<List<Book>>> argumentCapture;
 
     @Before
-    public void setUp ()
+    public void setUp()
     {
-        MockitoAnnotations.initMocks( this );
+        MockitoAnnotations.initMocks(this);
 
-        booksPresenter = new BooksPresenter( booksView, bookService );
-        books = Collections.singletonList( new Book() );
+        booksPresenter = new BooksPresenter(booksView, bookService);
+        books = Collections.singletonList(new Book());
     }
 
     @Test
-    public void initDataSet_shouldGetBooks ()
+    public void initDataSet_shouldGetBooks()
     {
-        when( bookService.getBooks() ).thenReturn( mockCall );
-        Response<List<Book>> res = Response.success( books );
+        when(bookService.getBooks()).thenReturn(mockCall);
+        Response<List<Book>> res = Response.success(books);
 
         booksPresenter.initDataSet();
 
-        verify( mockCall ).enqueue( argumentCapture.capture() );
-        argumentCapture.getValue().onResponse( null, res );
+        verify(mockCall).enqueue(argumentCapture.capture());
+        argumentCapture.getValue().onResponse(null, res);
 
-        verify( booksView ).showBooks( books );
+        verify(booksView).showBooks(books);
     }
 
     @Test
-    public void initDataSet_shouldDoNothing_whenBadRequest ()
+    public void initDataSet_shouldDoNothing_whenBadRequest()
     {
-        when( bookService.getBooks() ).thenReturn( mockCall );
-        Response<List<Book>> res = Response.error( 500, responseBody );
+        when(bookService.getBooks()).thenReturn(mockCall);
+        Response<List<Book>> res = Response.error(500, responseBody);
 
         booksPresenter.initDataSet();
 
-        verify( mockCall ).enqueue( argumentCapture.capture() );
-        argumentCapture.getValue().onResponse( null, res );
+        verify(mockCall).enqueue(argumentCapture.capture());
+        argumentCapture.getValue().onResponse(null, res);
 
-        verifyZeroInteractions( booksView );
+        verifyZeroInteractions(booksView);
     }
 
     @Test
-    public void initDataSet_shouldShowError_whenFailedRequest ()
+    public void initDataSet_shouldShowError_whenFailedRequest()
     {
-        when( bookService.getBooks() ).thenReturn( mockCall );
-        Throwable throwable = new Throwable ( new RuntimeException ( ) );
+        when(bookService.getBooks()).thenReturn(mockCall);
+        Throwable throwable = new Throwable(new RuntimeException());
 
         booksPresenter.initDataSet();
 
-        verify( mockCall ).enqueue( argumentCapture.capture() );
-        argumentCapture.getValue().onFailure( null, throwable );
+        verify(mockCall).enqueue(argumentCapture.capture());
+        argumentCapture.getValue().onFailure(null, throwable);
 
-        verify( booksView ).showErrorMessage();
+        verify(booksView).showErrorMessage();
     }
 
 }

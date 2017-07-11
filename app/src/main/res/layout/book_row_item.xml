@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:tools="http://schemas.android.com/tools"
-                 android:layout_width="match_parent"
-                 android:layout_height="@dimen/list_item_height"
-                 android:background="@color/indigo_50"
-                 android:layout_marginBottom="@dimen/item_margin"
-                 android:padding="@dimen/item_padding">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/list_item_height"
+                android:background="@color/indigo_50"
+                android:layout_marginBottom="@dimen/item_margin"
+                android:padding="@dimen/item_padding">
 
     <ImageView
         android:layout_width="@dimen/thumb_width"

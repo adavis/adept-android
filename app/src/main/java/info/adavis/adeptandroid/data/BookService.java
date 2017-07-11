@@ -19,25 +19,25 @@ import retrofit2.http.Query;
  */
 public interface BookService
 {
-    @GET( "books" )
+    @GET("books")
     Call<List<Book>> getBooks();
 
-    @GET( "books" )
-    Call<List<Book>> search (@Query( "q" ) String query);
+    @GET("books")
+    Call<List<Book>> search(@Query("q") String query);
 
-    @GET( "books/{id}" )
-    Call<Book> getBook (@Path( "id" ) Long id);
+    @GET("books/{id}")
+    Call<Book> getBook(@Path("id") Long id);
 
-    @POST( "books" )
-    Call<Book> saveBook (@Body Book book);
+    @POST("books")
+    Call<Book> saveBook(@Body Book book);
 
-    @PUT( "books/{id}" )
-    Call<Book> updateBook (@Path( "id" ) Long id, @Body Book book);
+    @PUT("books/{id}")
+    Call<Book> updateBook(@Path("id") Long id, @Body Book book);
 
-    @DELETE( "books/{id}")
-    Call<Void> deleteBook (@Path( "id" ) Long id);
+    @DELETE("books/{id}")
+    Call<Void> deleteBook(@Path("id") Long id);
 
-    @PATCH( "books/{id}" )
-    Call<Book> updateBookValue (@Path( "id" ) Long id, @Body Map<String, String> bookValue);
+    @PATCH("books/{id}")
+    Call<Book> updateBookValue(@Path("id") Long id, @Body Map<String, String> bookValue);
 
 }
