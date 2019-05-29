@@ -13,12 +13,13 @@ import retrofit2.http.Query;
  */
 public interface BookService
 {
-    @GET( "books" )
+
+    @GET("books")
     Call<List<Book>> getBooks();
 
-    @GET( "books" )
-    Call<List<Book>> search( @Query( "q" ) String query );
+    @GET("books")
+    Call<List<Book>> search(@Query("q") String query);
 
-    @GET( "books/{id}" )
-    Call<Book> getBook( @Path( "id" ) Long id );
+    @GET("books/{id}")
+    Call<Book> getBook(@Path("id") Long id);
 }

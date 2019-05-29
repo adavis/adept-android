@@ -9,9 +9,9 @@ public interface BookContract
 {
     interface View
     {
-        void showErrorMessage ();
+        void showErrorMessage();
 
-        void showBook (Book book);
+        void showBook(Book book);
     }
 
 }

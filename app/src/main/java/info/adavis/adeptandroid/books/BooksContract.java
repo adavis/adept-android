@@ -13,9 +13,9 @@ public interface BooksContract
     interface View
     {
 
-        void showBooks (List<Book> books);
+        void showBooks(List<Book> books);
 
-        void showErrorMessage ();
+        void showErrorMessage();
     }
 
 }

@@ -1,5 +1,6 @@
 package info.adavis.adeptandroid.models;
 
+import org.jetbrains.annotations.NotNull;
 
 public class Book {
 
@@ -39,6 +40,7 @@ public class Book {
         return numberOfPages;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Book{" +

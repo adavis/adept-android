@@ -26,32 +26,37 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.adavis.adeptandroid.R;
 import info.adavis.adeptandroid.models.Book;
 import timber.log.Timber;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>
+{
 
     private WeakReference<Context> context;
     private List<Book> books;
     private BookItemListener itemListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener
+    {
 
-        @Bind(R.id.titleTextView) TextView titleTextView;
-        @Bind(R.id.authorTextView) TextView authorTextView;
-        @Bind(R.id.publishedTextView) TextView publishedTextView;
-        @Bind(R.id.pagesTextView) TextView pagesTextView;
-        @Bind(R.id.imageView) ImageView imageView;
+        @BindView(R.id.titleTextView) TextView titleTextView;
+        @BindView(R.id.authorTextView) TextView authorTextView;
+        @BindView(R.id.publishedTextView) TextView publishedTextView;
+        @BindView(R.id.pagesTextView) TextView pagesTextView;
+        @BindView(R.id.imageView) ImageView imageView;
 
         BookItemListener itemListener;
 
-        public ViewHolder(View v, BookItemListener itemListener) {
+        ViewHolder(View v, BookItemListener itemListener)
+        {
             super(v);
             ButterKnife.bind(this, v);
 
@@ -67,14 +72,17 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         }
     }
 
-    public BooksAdapter (Context context, List<Book> books, BookItemListener itemListener) {
+    BooksAdapter(Context context, List<Book> books, BookItemListener itemListener)
+    {
         this.context = new WeakReference<>(context);
         this.books = books;
         this.itemListener = itemListener;
     }
 
+    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType)
+    {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.book_row_item, viewGroup, false);
 
@@ -82,7 +90,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NotNull ViewHolder viewHolder, final int position)
+    {
         Timber.d("Element " + position + " set.");
 
         Book book = books.get(position);
@@ -96,7 +105,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             viewHolder.pagesTextView.setText(
                     String.format(contextLocal.getString(R.string.pages_label), book.getNumberOfPages()));
 
-            Picasso.with(contextLocal)
+            Picasso.get()
                     .load(book.getImageUrl())
                     .resize(80, 108)
                     .centerInside()
@@ -105,20 +114,24 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return books.size();
     }
 
-    public void updateBooks(List<Book> books) {
+    void updateBooks(List<Book> books)
+    {
         this.books = books;
         notifyDataSetChanged();
     }
 
-    private Book getItem(int adapterPosition) {
+    private Book getItem(int adapterPosition)
+    {
         return books.get(adapterPosition);
     }
 
-    public interface BookItemListener {
+    public interface BookItemListener
+    {
         void onBookClick(long id);
     }
 }
